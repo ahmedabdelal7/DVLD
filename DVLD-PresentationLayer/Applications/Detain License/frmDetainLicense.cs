@@ -87,7 +87,7 @@ namespace DVLD.Applications.Detain_License
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !clsValidate.IsValidInteger(sender, e);
+            e.Handled = !clsValidation.IsValidInteger(sender, e);
         }
 
         private void button1_Click(object sender, EventArgs e)

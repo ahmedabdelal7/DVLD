@@ -19,11 +19,10 @@ namespace DVLD.Users
         enMode _Mode;
 
         int _PersonID;
-        string _NationalNo;
         int _UserID;
         clsUser _User;
 
-
+        
         public frmAddEditUser(int UserID)
         {
             _Mode = enMode.Update;
@@ -46,6 +45,7 @@ namespace DVLD.Users
 
                 lblAddEditUser.Text = "Add New User";
                 _User = new clsUser();
+                btnNext.Enabled = false;
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace DVLD.Users
 
             ctrlPersonCardWithFilter1.LoadPersonInfo(_User.PersonID);
 
-            ctrlPersonCardWithFilter1.DisableFilter();
+            ctrlPersonCardWithFilter1.FilterEnabled = false;
 
             lblUserID.Text = _UserID.ToString();
 
@@ -63,6 +63,7 @@ namespace DVLD.Users
             //txtPassword.Text = _User.Password.ToString();
             //txtConfirmPassword.Text = _User.Password.ToString();
             chkIsActive.Checked = _User.IsActive;
+            btnNext.Enabled = true;
 
             
 
@@ -71,9 +72,10 @@ namespace DVLD.Users
         {    
             _PersonID = ctrlPersonCardWithFilter1.PersonID;
             
-            _NationalNo = ctrlPersonCardWithFilter1.NationalNo;
+            
+            //_NationalNo = ctrlPersonCardWithFilter1.NationalNo;
 
-            if (_PersonID == -1 && _NationalNo == "")
+            if (_PersonID == -1)
             {
                 MessageBox.Show("Please select person first!","Failed",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 return;
@@ -82,26 +84,14 @@ namespace DVLD.Users
             if(_Mode == enMode.AddNew)
             {
 
-                if(ctrlPersonCardWithFilter1.SelectedFilter ==(short)enFilterBy.PersonID)
-                {
-                    if (clsUser.IsExistByPersonID(_PersonID))
-                    {
-                        MessageBox.Show("This Person is connected to another user, choose another person.",
-                            "Invalid Choice", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-            
-                }
-                else
-                {
-                    if (clsUser.IsExistByNationalNo(_NationalNo))
-                    {
-                        MessageBox.Show("This Person is connected to another user, choose another person.",
-                            "Invalid Choice", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
 
+                if (clsUser.IsExistByPersonID(_PersonID))
+                {
+                    MessageBox.Show("This Person is connected to another user, choose another person.",
+                        "Invalid Choice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+            
 
                 // code for go to login info:
                 tabControl1.SelectedIndex = 1;
@@ -227,9 +217,14 @@ namespace DVLD.Users
 
         private void frmAddEditUser_Load(object sender, EventArgs e)
         {
+            ctrlPersonCardWithFilter1.OnPersonSelected += PersonSelected;
             _LoadInfo();
         }
-
+        private void PersonSelected(int personID)
+        {
+            _PersonID = personID;
+            btnNext.Enabled = true;
+        }
         private void frmAddEditUser_Activated(object sender, EventArgs e)
         {
             //this.Activate();
@@ -237,6 +232,11 @@ namespace DVLD.Users
         }
 
         private void tabPersonInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctrlPersonCardWithFilter1_OnPersonSelected(int obj)
         {
 
         }

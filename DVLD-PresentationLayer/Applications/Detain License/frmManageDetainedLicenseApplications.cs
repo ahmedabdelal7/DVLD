@@ -133,7 +133,7 @@ namespace DVLD.Applications.Detain_License
         {
             if (cbFilter.SelectedIndex != (int)enFindBy.NationalNo)
             {
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
             }
         }
 
@@ -217,7 +217,7 @@ namespace DVLD.Applications.Detain_License
 
         private void showPersonDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPersonDetails frmPersonDetails   = new frmPersonDetails(clsLicense.Find((int)dgvDetainedLicenses.SelectedCells[1].Value).PersonID);
+            frmShowPersonInfo frmPersonDetails   = new frmShowPersonInfo(clsLicense.Find((int)dgvDetainedLicenses.SelectedCells[1].Value).PersonID);
             frmPersonDetails.ShowDialog();
         }
 

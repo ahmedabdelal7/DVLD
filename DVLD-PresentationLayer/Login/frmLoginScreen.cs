@@ -19,7 +19,7 @@ namespace DVLD
             InitializeComponent();
         }
         clsUser _User;
-        string _SavedLoginPath = @"C:\DVLD\SavedLogin.txt";
+        //string _SavedLoginPath = @"C:\DVLD\SavedLogin.txt";
 
         private void btnLogin_Click(object sender, EventArgs e)
         {

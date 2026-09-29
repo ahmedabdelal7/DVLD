@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace DVLD.People
         public frmManagePeople()
         {
             InitializeComponent();
+            
         }
         enum enFilterBY
         {
@@ -24,18 +26,26 @@ namespace DVLD.People
             ThirdName, LastName, Nationality, Gender, Phone, Email
         }
 
-        DataTable _dtPeople = clsPerson.ListAllPeople();
-
+        DataTable _dtPeople;
+        private int _PageNumber = 1; //default = 1
+        private int _RowsPerPage = 12;
         private void frmManagePeople_Load(object sender, EventArgs e)
         {
 
             cbFilter.SelectedIndex = 0;
             txtFilterText.Visible = false;
 
-            //_dtPeople = clsPerson.ListAllPeople();
-            dgvPeople.DataSource = _dtPeople;
+            DataTable tempTable = clsPerson.GetPeople(_PageNumber, _RowsPerPage).GetAwaiter().GetResult();
 
-            lblRecords.Text = _dtPeople.Rows.Count.ToString();
+            _dtPeople = tempTable.DefaultView
+                        .ToTable(false, "PersonID", "NationalNo", "FirstName", "SecondName",
+                                    "ThirdName", "LastName", "Gender", "DateOfBirth",
+                                    "Phone", "Email", "CountryName");
+
+
+            dgvPeople.DataSource = _dtPeople;
+            lblRecords.Text = dgvPeople.RowCount.ToString();
+            //_FetchNextPeople(1);
 
             if (_dtPeople.Rows.Count == 0)
             {
@@ -76,10 +86,12 @@ namespace DVLD.People
             dgvPeople.Columns[10].HeaderText = "Nationality";
             dgvPeople.Columns[10].Width = 100;
 
+            //dgvPeople.ClearSelection();
         }
 
         private int _GetSelectedPersonID()
         {
+            //return (int)dgvPeople.CurrentRow.Cells[0].Value;
             return (int)dgvPeople.SelectedCells[0].Value;
         }
 
@@ -97,7 +109,7 @@ namespace DVLD.People
         private void btnAdd_Click(object sender, EventArgs e)
         {
             frmAddEditPerson frmAddEditPerson = new frmAddEditPerson();
-            frmAddEditPerson.IsSaved += _RefreshDataTable;
+            //frmAddEditPerson.IsSaved += _RefreshPeopleList;
             frmAddEditPerson.ShowDialog();
            
         }
@@ -112,7 +124,7 @@ namespace DVLD.People
             int PersonID = _GetSelectedPersonID();
 
             frmAddEditPerson editPerson = new frmAddEditPerson(PersonID);
-            editPerson.IsSaved += _RefreshDataTable;
+           // editPerson.IsSaved += _RefreshPeopleList;
             editPerson.ShowDialog();
         }
 
@@ -125,27 +137,26 @@ namespace DVLD.People
             if (msgResult != DialogResult.Yes)
                 return;
             
-            if (clsPerson.IsExist(PersonID))
+            if (!clsPerson.IsExist(PersonID))
             {
-
-                if (clsPerson.Delete(PersonID))
-                {
-
-                    _RefreshDataTable();
-                    MessageBox.Show("Person deleted successfully.", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                          
-                    return;
-                }
-
-                //referential integrity.
-                MessageBox.Show("Failed to this person because he has a related data in the system!",
-                    "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed, this person does not exist!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
             }
 
-            MessageBox.Show("Failed, this person does not exist!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (clsPerson.Delete(PersonID))
+            {
+
+               // _RefreshPeopleList();
+                MessageBox.Show("Person deleted successfully.", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                          
+                return;
+            }
+
+            //referential integrity.
+            MessageBox.Show("Failed to this person because he has a related data in the system!",
+                "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;            
 
         }
         private void _ShowPersonDetails()
@@ -156,11 +167,11 @@ namespace DVLD.People
 
             if (!clsPerson.IsExist(PersonID))
             {
-                MessageBox.Show("this person does not exist, chose another one.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("This person does not exist, choose another one.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
                return ;
             }
 
-            frmPersonDetails frmPersonDetails = new frmPersonDetails(PersonID);
+            frmShowPersonInfo frmPersonDetails = new frmShowPersonInfo(PersonID);
             frmPersonDetails.ShowDialog();
 
         }
@@ -177,19 +188,10 @@ namespace DVLD.People
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAddEditPerson AddNewPerson = new frmAddEditPerson();
-            AddNewPerson.IsSaved += _RefreshDataTable;
+           // AddNewPerson.IsSaved += _RefreshPeopleList;
             AddNewPerson.ShowDialog();            
         }
 
-        private void _RefreshDataTable(bool isSaved =true)
-        {
-            if (isSaved)
-            {
-                 _dtPeople = clsPerson.ListAllPeople();
-                dgvPeople.DataSource = _dtPeople;
-                cbFilter.SelectedIndex = (int)enFilterBY.None;
-            }
-        }
         private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("The feature is not implemented yet.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -201,7 +203,7 @@ namespace DVLD.People
         private void txtFilterText_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (cbFilter.SelectedIndex == (short)enFilterBY.PersonID)
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
         }
 
         private void txtFilterText_TextChanged(object sender, EventArgs e)
@@ -250,13 +252,14 @@ namespace DVLD.People
                     break;
             }
 
-            if (cbFilter.SelectedIndex == (int)enFilterBY.PersonID) {
+            if (cbFilter.SelectedIndex == (int)enFilterBY.PersonID) 
+
                 _dtPeople.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, int.Parse(txtFilterText.Text.Trim()));
-            }
-            else
-            {
+            
+            else            
+
                 _dtPeople.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterColumn, txtFilterText.Text.Trim());
-            }
+            
 
         }
 
@@ -266,6 +269,53 @@ namespace DVLD.People
                 msManagePeople.Enabled = false;       
             else
                 msManagePeople.Enabled = true;
+        }
+
+        private int _LastScrollValue = 0;
+        private int _PrevRowsCount = 0;
+
+        async private void _FetchNextPeople(int nextPage)
+        {
+            progressIndictior.Visible = true;
+            progressIndictior.Start();
+
+            await Task.Delay(1000);
+
+            progressIndictior.Visible = false;
+            progressIndictior.Stop();
+          
+            DataTable dtNextPeople = clsPerson.GetPeople(nextPage, _RowsPerPage).GetAwaiter().GetResult();
+
+            _PrevRowsCount = dgvPeople.RowCount;
+
+            _dtPeople.Merge(dtNextPeople.DefaultView
+                    .ToTable(false, "PersonID", "NationalNo", "FirstName", "SecondName",
+                                "ThirdName", "LastName", "Gender", "DateOfBirth",
+                                "Phone", "Email", "CountryName"));
+
+            if(_PageNumber > 2 && _PrevRowsCount > 0)
+            {
+                dgvPeople.FirstDisplayedScrollingRowIndex =  (_PrevRowsCount - _RowsPerPage);
+            }
+            else
+            {
+                dgvPeople.FirstDisplayedScrollingRowIndex = 1;
+            }
+
+            lblRecords.Text = dgvPeople.RowCount.ToString();           
+
+        }
+
+        private void dgvPeople_Scroll(object sender, ScrollEventArgs e)
+        {
+            if (e.NewValue > _LastScrollValue &&
+                (e.OldValue == 0 || e.NewValue % _RowsPerPage == 0))
+            {
+                _LastScrollValue = e.NewValue;
+
+                //_PageNumber + 1;
+                _FetchNextPeople(++_PageNumber);                
+            }            
         }
     }
 }

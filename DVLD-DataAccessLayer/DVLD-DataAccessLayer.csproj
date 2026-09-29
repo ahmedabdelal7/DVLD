@@ -59,5 +59,11 @@
     <Compile Include="clsInternationalLicenseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DTOs\DTOs.csproj">
+      <Project>{255aa846-37cf-4595-ac67-a01b11ac33a7}</Project>
+      <Name>DTOs</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

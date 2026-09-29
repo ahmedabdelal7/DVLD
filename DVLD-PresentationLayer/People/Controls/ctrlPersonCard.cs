@@ -15,9 +15,9 @@ using System.IO;
 
 namespace DVLD.People.Controls
 {
-    public partial class ctrlPersonDetails : UserControl
+    public partial class ctrlPersonCard : UserControl
     {
-        public ctrlPersonDetails()
+        public ctrlPersonCard()
         {
             InitializeComponent();
         }
@@ -38,12 +38,12 @@ namespace DVLD.People.Controls
         
         private void _SetPersonImage()
         {
-            ppPersonImage.Image = (_Person.Gender == clsPerson.enGender.Male ? Resources.man : Resources.woman);
 
             if (_Person.ImagePath != "")
                 if (File.Exists(_Person.ImagePath))
                     ppPersonImage.ImageLocation = _Person.ImagePath;
                 else MessageBox.Show("Could`t Find this Image [" + _Person.ImagePath + "] .", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ppPersonImage.Image = (_Person.Gender == clsPerson.enGender.Male ? Resources.man : Resources.woman);
 
         }
 
@@ -100,7 +100,7 @@ namespace DVLD.People.Controls
             if (_Person == null)
             {
                 _ResetDefaultValues();
-                MessageBox.Show($"This person with NationalNo. {_Person.NationalNo} is not found", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"This person is not found", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

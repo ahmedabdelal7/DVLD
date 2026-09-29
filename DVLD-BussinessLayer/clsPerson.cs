@@ -1,4 +1,5 @@
-﻿using DVLD_BusinessLayer;
+﻿using DTOs;
+using DVLD_BusinessLayer;
 using DVLD_DataAccessLayer;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,6 @@ namespace DVLD_BussinessLayer
 
         //Composition with country table.
         public clsCountry CountryInfo;
-
-
         public clsPerson()
         {
             PersonID = -1;
@@ -60,40 +59,49 @@ namespace DVLD_BussinessLayer
             _Mode = enMode.AddNew;
 
         }
-
-        private clsPerson(int personID, string nationalNo, string firstName, string secondName, string thirdName, string lastName,
-            DateTime dateOfBirth, string email, string address, string phone, enGender gender, int nationalityCountryID, string imagePath)
+        //Initialize new object withe default values:
+        private clsPerson(dtoPerson dto)
         {
-            PersonID = personID;
-            NationalNo = nationalNo;
-            FirstName = firstName;
-            SecondName = secondName;
-            ThirdName = thirdName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            Email = email;
-            Address = address;
-            Phone = phone;
-            Gender = gender;
-            NationalityCountryID = nationalityCountryID;
-            ImagePath = imagePath;
+            PersonID = dto.PersonID;
+            NationalNo = dto.NationalNo;
+            FirstName = dto.FirstName;
+            SecondName = dto.SecondName;
+            ThirdName = dto.ThirdName;
+            LastName = dto.LastName;
+            DateOfBirth = dto.DateOfBirth;
+            Email = dto.Email;
+            Address = dto.Address;
+            Phone = dto.Phone;
+            Gender = (enGender) dto.Gender;
+            NationalityCountryID = dto.NationalityCountryID;
+            ImagePath = dto.ImagePath;
 
-            CountryInfo = clsCountry.Find(nationalityCountryID);
+            CountryInfo = clsCountry.Find(NationalityCountryID);
+
             _Mode = enMode.Update;
+        }
+
+        private dtoPerson _GetDTOPersonInfo()
+        {
+            return new dtoPerson
+                (
+                    this.PersonID, this.NationalNo, this.FirstName, this.SecondName, this.ThirdName,
+                    this.LastName, this.Email, this.Phone, this.DateOfBirth, (byte)this.Gender,
+                    this.Address, this.NationalityCountryID, this.ImagePath
+                );
         }
 
         private bool _AddNew()
         {
-            this.PersonID = clsPersonData.AddNewPerson(this.NationalNo, this.FirstName, this.SecondName, this.ThirdName,
-                this.LastName, this.DateOfBirth, (byte)this.Gender, this.Address, this.Phone, this.Email, this.NationalityCountryID, this.ImagePath);
+            dtoPerson dto = _GetDTOPersonInfo();
+            this.PersonID = clsPersonData.AddNewPerson(dto);
 
             return PersonID > -1;
         }
         private bool _Update()
         {
-
-            return clsPersonData.UpdatePerson(this.PersonID, this.NationalNo, this.FirstName, this.SecondName, this.ThirdName,
-                this.LastName, this.DateOfBirth, (byte)this.Gender, this.Address, this.Phone, this.Email, this.NationalityCountryID, this.ImagePath);
+            dtoPerson dto = _GetDTOPersonInfo();
+            return clsPersonData.UpdatePerson(dto);
         }
 
         public static bool Delete(int PersonID)
@@ -102,34 +110,20 @@ namespace DVLD_BussinessLayer
         }
         public static clsPerson Find(int PersonID)
         {
-            string NationalNo = "", FirstName = "", SecondName = "", ThirdName = "", LastName = "", Address = "", Email = "", Phone = "", ImagePath = "";
-            byte Gender = 0;
-            int NationalityCountryID = -1;
-            DateTime DateOfBirth = DateTime.MinValue;
+            dtoPerson dto = clsPersonData.GetPersonByID(PersonID);
+            if (dto != null)
+                return new clsPerson(dto);
 
-            if (clsPersonData.GetPersonByID(PersonID, ref NationalNo, ref FirstName, ref SecondName, ref ThirdName, ref LastName,
-                ref DateOfBirth, ref Gender, ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath))
-            {
-                return new clsPerson(PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
-                 DateOfBirth, Email, Address, Phone, (enGender)Gender, NationalityCountryID, ImagePath);
-            }
             return null;
-
         }
+
         public static clsPerson Find(string NationalNo)
         {
-            int PersonID = 0;
-            string FirstName = "", SecondName = "", ThirdName = "", LastName = "", Address = "", Email = "", Phone = "", ImagePath = "";
-            byte Gender = 0;
-            int NationalityCountryID = -1;
-            DateTime DateOfBirth = DateTime.MinValue;
+            dtoPerson dto = clsPersonData.GetPersonByNationalNo(NationalNo);
 
-            if (clsPersonData.GetPersonByNationalNo(NationalNo, ref PersonID, ref FirstName, ref SecondName, ref ThirdName, ref LastName,
-                ref DateOfBirth, ref Gender, ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath))
-            {
-                return new clsPerson(PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName,
-                 DateOfBirth, Email, Address, Phone,(enGender) Gender, NationalityCountryID, ImagePath);
-            }
+            if(dto != null)
+                return new clsPerson(dto);
+
             return null;
 
         }
@@ -145,6 +139,12 @@ namespace DVLD_BussinessLayer
         public static DataTable ListAllPeople() { 
             
             return clsPersonData.GetAllPeople();
+        }
+
+        async public static Task< DataTable> GetPeople(int PageNumber, int RowsPerPage)
+        {
+             
+             return await clsPersonData.GetPeoples(PageNumber, RowsPerPage);
         }
 
         public bool Save()
@@ -164,8 +164,5 @@ namespace DVLD_BussinessLayer
             return false;
 
         }
-
-
-
     }
 }

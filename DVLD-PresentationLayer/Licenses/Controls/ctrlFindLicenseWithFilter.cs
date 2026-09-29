@@ -46,7 +46,7 @@ namespace DVLD.Licenses.Controls
 
         private void txtLicenseID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !clsValidate.IsValidInteger(sender, e);
+            e.Handled = !clsValidation.IsValidInteger(sender, e);
         }
 
         private void btnFindLicense_Click(object sender, EventArgs e)

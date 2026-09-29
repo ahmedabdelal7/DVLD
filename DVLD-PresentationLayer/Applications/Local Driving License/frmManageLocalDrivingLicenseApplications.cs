@@ -92,7 +92,7 @@ namespace DVLD.Applications
         {
             if(cbFilter.SelectedIndex == (int)enFilterBy.LDLAppID)
             {
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
             }
         }
 

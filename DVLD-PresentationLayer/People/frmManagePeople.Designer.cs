@@ -50,6 +50,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.progressIndictior = new Guna.UI2.WinForms.Guna2WinProgressIndicator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).BeginInit();
             this.msManagePeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -97,9 +98,10 @@
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvPeople.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPeople.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPeople.Size = new System.Drawing.Size(1392, 313);
+            this.dgvPeople.Size = new System.Drawing.Size(1392, 312);
             this.dgvPeople.TabIndex = 2;
             this.dgvPeople.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPeople_CellDoubleClick);
+            this.dgvPeople.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvPeople_Scroll);
             // 
             // msManagePeople
             // 
@@ -111,7 +113,7 @@
             this.sendEmailToolStripMenuItem,
             this.phoneCallToolStripMenuItem});
             this.msManagePeople.Name = "msManagePeople";
-            this.msManagePeople.Size = new System.Drawing.Size(204, 232);
+            this.msManagePeople.Size = new System.Drawing.Size(212, 232);
             this.msManagePeople.Opening += new System.ComponentModel.CancelEventHandler(this.msManagePeople_Opening);
             // 
             // showDetailsToolStripMenuItem
@@ -119,7 +121,7 @@
             this.showDetailsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showDetailsToolStripMenuItem.Image")));
             this.showDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.showDetailsToolStripMenuItem.Text = "ShowDetails";
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
@@ -128,7 +130,7 @@
             this.addNewPersonToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addNewPersonToolStripMenuItem.Image")));
             this.addNewPersonToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.addNewPersonToolStripMenuItem.Name = "addNewPersonToolStripMenuItem";
-            this.addNewPersonToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.addNewPersonToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.addNewPersonToolStripMenuItem.Text = "Add New Person";
             this.addNewPersonToolStripMenuItem.Click += new System.EventHandler(this.addNewPersonToolStripMenuItem_Click);
             // 
@@ -137,7 +139,7 @@
             this.editToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editToolStripMenuItem.Image")));
             this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -146,7 +148,7 @@
             this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
             this.deleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -155,7 +157,7 @@
             this.sendEmailToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sendEmailToolStripMenuItem.Image")));
             this.sendEmailToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.sendEmailToolStripMenuItem_Click);
             // 
@@ -164,7 +166,7 @@
             this.phoneCallToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phoneCallToolStripMenuItem.Image")));
             this.phoneCallToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
-            this.phoneCallToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.phoneCallToolStripMenuItem.Size = new System.Drawing.Size(211, 38);
             this.phoneCallToolStripMenuItem.Text = "Phone Call";
             this.phoneCallToolStripMenuItem.Click += new System.EventHandler(this.phoneCallToolStripMenuItem_Click);
             // 
@@ -241,7 +243,7 @@
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1296, 700);
+            this.btnClose.Location = new System.Drawing.Point(1296, 709);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(124, 40);
             this.btnClose.TabIndex = 7;
@@ -272,6 +274,17 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // progressIndictior
+            // 
+            this.progressIndictior.BackColor = System.Drawing.Color.Transparent;
+            this.progressIndictior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.progressIndictior.CircleSize = 1F;
+            this.progressIndictior.Location = new System.Drawing.Point(677, 483);
+            this.progressIndictior.Name = "progressIndictior";
+            this.progressIndictior.Size = new System.Drawing.Size(90, 90);
+            this.progressIndictior.TabIndex = 8;
+            this.progressIndictior.Visible = false;
+            // 
             // frmManagePeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -279,6 +292,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1445, 768);
+            this.Controls.Add(this.progressIndictior);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtFilterText);
@@ -322,5 +336,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem phoneCallToolStripMenuItem;
+        private Guna.UI2.WinForms.Guna2WinProgressIndicator progressIndictior;
     }
 }

@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace DVLD.Common_Classes
 {
-    public static class clsValidate
+    public static class clsValidation
     {
 
         public static bool IsValidEmail(string email)
@@ -27,13 +27,6 @@ namespace DVLD.Common_Classes
             return char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar);
             
         }
-
-       
-
-
-
-
-
-
+        
     }
 }

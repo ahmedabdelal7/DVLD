@@ -40,45 +40,56 @@ namespace DVLD.Common_Classes
             return date.ToString("dd")+"/"+date.ToString("MMM")+"/"+date.ToString("yyyy");
         }
 
-        private static string ImagesFolderPath = @"C:\DVLD\People-Images\";
-        private static bool CreateImagesFolderIfNotExist()
+        //private static string ImagesFolderPath = @"C:\DVLD\People-Images\";
+        public static bool CreateFolderIfDoesNotExist(string FolderPath)
         {
-           
-            if (!Directory.Exists(ImagesFolderPath))
+
+            // Check if the folder exists
+            if (!Directory.Exists(FolderPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(ImagesFolderPath);
-
+                    // If it doesn't exist, create the folder
+                    Directory.CreateDirectory(FolderPath);
+                    return true;
                 }
-                catch (Exception) {
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error creating folder: " + ex.Message);
                     return false;
                 }
             }
+
             return true;
+
         }
 
-        private static string ChangeImageNameToGUID(string ImageFileName)
+        private static string ReplaceFileNameWithGUID(string sourceFile)
         {
             string GUID = Guid.NewGuid().ToString();
 
-            FileInfo fileInfo = new FileInfo(ImageFileName);
+            FileInfo fileInfo = new FileInfo(sourceFile);
             string ext =  fileInfo.Extension;
 
             return GUID + ext;
 
         }
-        public static bool CopyImageToProjectFolderImages(ref string SourceImageLocation)
+        public static bool CopyImageToProjectImagesFolder(ref string sourceFile)
         {
-            if (!CreateImagesFolderIfNotExist()) { 
+            // this funciton will copy the image to the
+            // project images foldr after renaming it
+            // with GUID with the same extention, then it will update the sourceFileName with the new name.
+
+            string DestinationFolder = @"C:\DVLD\People-Images\";
+            if (!CreateFolderIfDoesNotExist(DestinationFolder))
+            {
                 return false;
             }
 
-            string DestinationImageLocation = ImagesFolderPath + ChangeImageNameToGUID(SourceImageLocation);
-
+            string destinationFile = DestinationFolder + ReplaceFileNameWithGUID(sourceFile);
             try
             {
-                File.Copy(SourceImageLocation, DestinationImageLocation,true);
+                File.Copy(sourceFile, destinationFile, true);
 
             }
             catch (IOException iox)
@@ -86,9 +97,15 @@ namespace DVLD.Common_Classes
                 MessageBox.Show(iox.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            SourceImageLocation = DestinationImageLocation;
+
+            sourceFile = destinationFile;
             return true;
         }
+
+
+        /// <summary>
+        /// //////////////////
+        /// </summary>
 
         private static string RegistryKeyPath = @"HKEY_CURRENT_USER\";
         private static string UserLoginInfoNode = @"Software\DVLD\UserLoginInfo";

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlPersonDetails1 = new DVLD.People.Controls.ctrlPersonDetails();
+            this.ctrlPersonDetails1 = new DVLD.People.Controls.ctrlPersonCard();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -139,7 +139,7 @@
 
         #endregion
 
-        private People.Controls.ctrlPersonDetails ctrlPersonDetails1;
+        private People.Controls.ctrlPersonCard ctrlPersonDetails1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblIsActive;
         private System.Windows.Forms.Label label3;

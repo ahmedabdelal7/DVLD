@@ -10,134 +10,155 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace DVLD.People.Controls
 {
     public partial class ctrlPersonCardWithFilter : UserControl
     {
+        //Event on person selected.
+        public event Action<int> OnPersonSelected;
+
+        private bool _ShowAddPerson = true;
+        public bool ShowAddPerson
+        {
+            get => _ShowAddPerson;
+            set 
+            {
+                _ShowAddPerson=value;
+                btnAdd.Visible = _ShowAddPerson;
+            } 
+        }
+
+        private bool _FilterEnabled = false;
+        public bool FilterEnabled
+        {
+            get => _FilterEnabled;
+            set
+            {
+                _FilterEnabled=value;
+                gbFilter.Enabled = _FilterEnabled;
+            }
+        }
+
         public ctrlPersonCardWithFilter()
         {
             InitializeComponent();
         }
 
-        DataTable _dtPeople;
+
         int _PersonID = -1;
-        string _NationalNo = ""; 
-        enum enFilterBy
+        public int PersonID => ctrlPersonCard1.PersonID;
+
+        public clsPerson SelectedPerson =>
+            ctrlPersonCard1.SelectedPersonInfo;
+
+        //----------------------Methods---------------------------//
+
+        private void FindNow()
         {
-            NationalNo=0, PersonID =1
-        }
-
-        enFilterBy _SelectedFilter = enFilterBy.PersonID;
-
-        public int PersonID { get { return _PersonID; } }
-        public string NationalNo { get { return _NationalNo; } }
-        public short SelectedFilter { get { return (short)_SelectedFilter; } }
-
-        //public bool DisableFilter { get; set; }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            //DataTable dt = _dtPeople;
-            
-            string searchText = txtSearch.Text.Trim().ToString(); ;
-
-            _PersonID = -1;
-            _NationalNo = "";
-
-            if (string.IsNullOrEmpty(searchText))
+            switch (cbFilterBy.Text)
             {
-                MessageBox.Show("Please choose person first!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //ctrlPersonDetails1.ResetPersonCard();
-                return;
+                case "Person ID":
+                    ctrlPersonCard1.LoadPersonInfo(int.Parse(txtFilterValue.Text));
+
+                    break;
+
+                case "National No.":
+                    ctrlPersonCard1.LoadPersonInfo(txtFilterValue.Text);
+                    break;
+
+                default:
+                    break;
             }
 
-
-            if (_SelectedFilter == enFilterBy.NationalNo)
-            {
-                string NationalNo = searchText;
-
-                if (!clsPerson.IsExist(NationalNo))
-                {
-                    MessageBox.Show("This person does not exist!","Info",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    ///ctrlPersonDetails1.ResetPersonCard();
-                    return;
-                }
-
-                _NationalNo = NationalNo;
-                _PersonID = clsPerson.Find(_NationalNo).PersonID;
-                ctrlPersonDetails1.LoadPersonInfo( _NationalNo);
-                return;
-            }
-
-            if(_SelectedFilter == enFilterBy.PersonID)
-            {
-                int PersonID = int.Parse(searchText);
-
-                if (!clsPerson.IsExist(PersonID))
-                {
-                    MessageBox.Show("This person does not exist!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //ctrlPersonDetails1.ResetPersonCard();
-                    return;
-                }
-
-                _PersonID = PersonID;
-                _NationalNo = clsPerson.Find(_PersonID).NationalNo;
-                ctrlPersonDetails1.LoadPersonInfo(_PersonID);
-                return;
-
-            }
-                //ctrlPersonDetails1.LoadPersonInfo(sender,personID)
-        }
-
-        private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
-        {
-            //_dtPeople  = clsPerson.ListAllPeople();
-            cbFindBy.SelectedIndex = 1;
-
-        }
-
-        private void txtSearch_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            if (cbFindBy.SelectedIndex == (short)enFilterBy.PersonID)
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
-
-        }
-
-        private void cbFindBy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(cbFindBy.SelectedItem.ToString() == "PersonID")
-            {
-                _SelectedFilter = enFilterBy.PersonID;
-            }else
-                _SelectedFilter = enFilterBy.NationalNo;
-
+            if (OnPersonSelected != null && FilterEnabled)
+                // Raise the event with a parameter
+                OnPersonSelected.Invoke(PersonID);
+                OnPersonSelected(ctrlPersonCard1.PersonID);
         }
 
         public void LoadPersonInfo(int PersonID)
         {
-            if (PersonID == -1) {
+            //change filter to PersonID and change the txtFilterValue = PersonID.
+            cbFilterBy.SelectedIndex = 1;//personID
+            txtFilterValue.Text = PersonID.ToString();
+            FindNow();
+        }
+
+        private void txtSearch_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is Enter (character code 13)
+            if (e.KeyChar == (char)13)
+            {
+
+                btnFind.PerformClick();
+            }
+
+            //this will allow only digits if person id is selected
+            if (cbFilterBy.Text == "Person ID")
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
+                //e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+
+            //if handled = true => it prevent you from write this character.
+         }
+
+        private void txtSearch_Validating(object sender, CancelEventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(txtFilterValue.Text.Trim()))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtFilterValue, "This field is required!");
+            }
+            else
+            {
+                //e.Cancel = false;
+                errorProvider1.SetError(txtFilterValue, null);
+            }
+        }
+
+        private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtFilterValue.Text = "";
+            txtFilterValue.Focus(); 
+        }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            if (!ValidateChildren())
+            {
+                //Here we dont continue becuase the form is not valid
+                MessageBox.Show("Some fields are not validated!, put the mouse over the red icon(s) to see the error", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            _PersonID=PersonID;
-            _NationalNo = "";
 
-            txtSearch.Text = PersonID.ToString();
-            cbFindBy.SelectedIndex = (short)enFilterBy.PersonID;
-
-            ctrlPersonDetails1.LoadPersonInfo(PersonID);
+            FindNow();
 
         }
 
-        public void DisableFilter()
+        private void ctrlPersonCardWithFilter_Load(object sender, EventArgs e)
         {
-            gbFilter.Enabled = false;
+            cbFilterBy.SelectedIndex = 0;
+            txtFilterValue.Focus(); 
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmAddEditPerson frmAddEditPerson = new frmAddEditPerson();
-            frmAddEditPerson.DataBack += LoadPersonInfo;
-            frmAddEditPerson.ShowDialog();
+            frmAddEditPerson frmAddNewPerson = new frmAddEditPerson();
+            frmAddNewPerson.DataBack += DataBack;
+            frmAddNewPerson.ShowDialog();
+        }
+
+        private void DataBack(int personID)
+        {
+            txtFilterValue.Text = personID.ToString();
+            cbFilterBy.SelectedIndex = 1;
+            ctrlPersonCard1.LoadPersonInfo(personID);
+        }
+
+        public void FilterFocus()
+        {
+            txtFilterValue.Focus();
         }
     }
 }

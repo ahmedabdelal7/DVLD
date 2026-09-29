@@ -16,7 +16,7 @@ namespace DVLD.Licenses
         private void frmDriverLicenseHistory_Load(object sender, EventArgs e)
         {
             ctrlPersonCardWithFilter1.LoadPersonInfo(_PersonID);
-            ctrlPersonCardWithFilter1.DisableFilter();
+            ctrlPersonCardWithFilter1.FilterEnabled = false;
 
             clsDriver driver = clsDriver.FindByPersonID(_PersonID);
 

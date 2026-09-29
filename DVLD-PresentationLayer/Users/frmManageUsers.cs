@@ -208,7 +208,7 @@ namespace DVLD.Users
         {
             if (cbFilter.SelectedIndex == (int)enFilterBy.PersonID || cbFilter.SelectedIndex == (int)enFilterBy.UserID)
             {
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
             }
         }
 

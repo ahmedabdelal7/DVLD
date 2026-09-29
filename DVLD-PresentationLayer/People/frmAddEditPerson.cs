@@ -37,12 +37,13 @@ namespace DVLD.People
         public frmAddEditPerson()
         {
             InitializeComponent();
-            _PersonID = -1;
+
             _Mode = enMode.AddNew;
         }
         public frmAddEditPerson(int PersonID)
         {
             InitializeComponent();
+
             _PersonID = PersonID;
             _Mode = enMode.Update;
         }
@@ -75,6 +76,7 @@ namespace DVLD.People
         private void _ValidateTextBox(object sender, CancelEventArgs e)
         {
             TextBox textBox = sender as TextBox;
+
             if (string.IsNullOrEmpty(textBox.Text.Trim()))
             {
                 e.Cancel = true;
@@ -91,7 +93,7 @@ namespace DVLD.People
         private void _ValidateEmail(object sender, CancelEventArgs e)
         {
             TextBox email = sender as TextBox;
-            if (string.IsNullOrEmpty(email.Text) || clsValidate.IsValidEmail(email.Text))
+            if (string.IsNullOrEmpty(email.Text) || clsValidation.IsValidEmail(email.Text))
             {
                 e.Cancel = false;
                 errorProvider1.SetError(email, null);
@@ -182,9 +184,11 @@ namespace DVLD.People
         }
         private void _LoadData()
         {
-            if (!clsPerson.IsExist(_PersonID))
+
+            _Person = clsPerson.Find(_PersonID);
+
+            if (_Person == null)
             {
-                _ResetDefaultValues();
                 MessageBox.Show("Person Does not exist, choose another person!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 return;
@@ -214,6 +218,7 @@ namespace DVLD.People
             else
                 rbFemale.Checked = true;
 
+            //hide / show remove link if there is no image
             llRemove.Visible = (ppPersonImage.ImageLocation == "" ? false : true);
 
         }
@@ -240,7 +245,8 @@ namespace DVLD.People
             _Person.Phone = txtPhone.Text.Trim();
             _Person.Address = txtAddress.Text.Trim();
             _Person.DateOfBirth = dateTimePicker1.Value;
-            _Person.Gender = (rbMale.Checked == true ? clsPerson.enGender.Male : clsPerson.enGender.Female);
+            _Person.Gender = 
+                (rbMale.Checked == true ? clsPerson.enGender.Male : clsPerson.enGender.Female);
 
             _Person.NationalityCountryID = (int)cbCountries.SelectedValue;
             if (ppPersonImage.ImageLocation != null)
@@ -297,9 +303,8 @@ namespace DVLD.People
         //    ppPersonImage.ImageLocation = destinationFileName;
 
         //}
-        private bool _HandelPersonImage()
+        private bool _HandlePersonImage()
         {
-
             if(_Person.ImagePath != ppPersonImage.ImageLocation)
             {
 
@@ -317,7 +322,7 @@ namespace DVLD.People
                 {
                     string SourceImageLocation = ppPersonImage.ImageLocation;
 
-                    if(!clsUtil.CopyImageToProjectFolderImages(ref SourceImageLocation))
+                    if(!clsUtil.CopyImageToProjectImagesFolder(ref SourceImageLocation))
                         return false;
 
                     ppPersonImage.ImageLocation = SourceImageLocation;
@@ -338,7 +343,10 @@ namespace DVLD.People
             //Handel Image
             //....
 
-            _HandelPersonImage();
+
+            if (!_HandlePersonImage())
+                return;
+
             _FillDataToPersonObject();
 
 

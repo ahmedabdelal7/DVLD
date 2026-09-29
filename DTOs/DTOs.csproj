@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E0B20243-D74A-44F7-9DCF-5079B8F466D6}</ProjectGuid>
+    <ProjectGuid>{255AA846-37CF-4595-AC67-A01B11AC33A7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DVLD_BussinessLayer</RootNamespace>
-    <AssemblyName>DVLD-BussinessLayer</AssemblyName>
+    <RootNamespace>DTOs</RootNamespace>
+    <AssemblyName>DTOs</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,31 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsApplication.cs" />
-    <Compile Include="clsApplicationType.cs" />
-    <Compile Include="clsCountry.cs" />
-    <Compile Include="clsDetainedLicense.cs" />
-    <Compile Include="clsDriver.cs" />
-    <Compile Include="clsInternationalLicense.cs" />
-    <Compile Include="clsLicense.cs" />
-    <Compile Include="clsLicenseClass.cs" />
-    <Compile Include="clsLocalDrivingLicenseApplication.cs" />
-    <Compile Include="clsPerson.cs" />
-    <Compile Include="clsTest.cs" />
-    <Compile Include="clsTestAppointment.cs" />
-    <Compile Include="clsTestType.cs" />
-    <Compile Include="clsUser.cs" />
+    <Compile Include="dtoPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DTOs\DTOs.csproj">
-      <Project>{255aa846-37cf-4595-ac67-a01b11ac33a7}</Project>
-      <Name>DTOs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DVLD-DataAccessLayer\DVLD-DataAccessLayer.csproj">
-      <Project>{4b871b13-8eb0-4959-befa-c2dc505fef59}</Project>
-      <Name>DVLD-DataAccessLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

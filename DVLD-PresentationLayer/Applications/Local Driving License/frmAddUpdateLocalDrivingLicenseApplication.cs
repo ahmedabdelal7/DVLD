@@ -88,7 +88,7 @@ namespace DVLD.Applications
 
             ctrlPersonCardWithFilter1.LoadPersonInfo(_LocalDrivingLicenseApplication.ApplicantPersonID);
 
-            ctrlPersonCardWithFilter1.DisableFilter();
+            ctrlPersonCardWithFilter1.FilterEnabled = false;
 
             lblLocalApplicationID.Text = _LocalDrivingLicenseApplicationID.ToString();
 
@@ -111,9 +111,7 @@ namespace DVLD.Applications
         private void btnNext_Click(object sender, EventArgs e)
         {
             
-            _PersonID = ctrlPersonCardWithFilter1.PersonID;
-
-            _NationalNo = ctrlPersonCardWithFilter1.NationalNo;
+            _PersonID = ctrlPersonCardWithFilter1.PersonID;            
 
             if (_PersonID == -1 && _NationalNo == "")
             {

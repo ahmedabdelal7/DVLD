@@ -130,7 +130,7 @@ namespace DVLD.Tests
 
         private void txtTestTypeFees_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !clsValidate.IsValidInteger(sender, e);
+            e.Handled = !clsValidation.IsValidInteger(sender, e);
         }
 
         private void txtTestTypeDescription_Validating(object sender, CancelEventArgs e)

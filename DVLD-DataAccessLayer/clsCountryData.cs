@@ -10,8 +10,6 @@ namespace DVLD_DataAccessLayer
 {
     public static class clsCountryData
     {
-
-
         public static bool GetCountryByID(int ID, ref string CountryName)
         {
             bool IsFound = false;
@@ -46,7 +44,6 @@ namespace DVLD_DataAccessLayer
             catch (Exception)
             {
                 throw;
-                IsFound = false;
             }
             finally
             {
@@ -89,7 +86,6 @@ namespace DVLD_DataAccessLayer
             catch (Exception)
             {
                 throw;
-                IsFound = false;
             }
             finally
             {
@@ -104,7 +100,7 @@ namespace DVLD_DataAccessLayer
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Countries ORDER BY CountryName";
+            string query = "SELECT * FROM Countries ORDER BY CountryName;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -122,7 +118,7 @@ namespace DVLD_DataAccessLayer
             }
             catch (Exception)
             {
-
+                throw;
             }
             finally
             {

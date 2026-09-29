@@ -126,7 +126,7 @@ namespace DVLD.Applications
 
         private void txtApplicationFees_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !clsValidate.IsValidInteger(sender, e);
+            e.Handled = !clsValidation.IsValidInteger(sender, e);
         }
     }
 }

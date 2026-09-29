@@ -52,7 +52,7 @@ namespace DVLD.Applications
         private void lblViewPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
-            frmPersonDetails frm = new frmPersonDetails(_DrivingLicenseApp.ApplicantPersonID);
+            frmShowPersonInfo frm = new frmShowPersonInfo(_DrivingLicenseApp.ApplicantPersonID);
             frm.ShowDialog();
         }
     }

@@ -68,7 +68,7 @@ namespace DVLD.Drivers
         {
             if(cbFilter.SelectedIndex != (int) enFilterBy.NationalNo && cbFilter.SelectedIndex != (int)enFilterBy.FullName)
             {
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
             }
         }
 
@@ -135,7 +135,7 @@ namespace DVLD.Drivers
 
         private void showPersonDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPersonDetails frm = new frmPersonDetails((int)dgvDrivers.SelectedCells[1].Value);
+            frmShowPersonInfo frm = new frmShowPersonInfo((int)dgvDrivers.SelectedCells[1].Value);
             frm.ShowDialog();
         }
 

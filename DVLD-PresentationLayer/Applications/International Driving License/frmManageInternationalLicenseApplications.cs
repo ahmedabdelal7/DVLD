@@ -49,7 +49,7 @@ namespace DVLD.Applications.International_License_Applications
                 cbFilter.SelectedIndex != (int)enFilterBy.IsActive &&
                 cbFilter.SelectedIndex != (int)enFilterBy.NationalNo)
             {
-                e.Handled = !clsValidate.IsValidInteger(sender, e);
+                e.Handled = !clsValidation.IsValidInteger(sender, e);
             }
         }
 
@@ -162,7 +162,7 @@ namespace DVLD.Applications.International_License_Applications
 
         private void showPersonDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPersonDetails frm = new frmPersonDetails(clsDriver.FindByDriverID((int)dgvIntLicenseApplications.SelectedCells[1].Value).PersonID);
+            frmShowPersonInfo frm = new frmShowPersonInfo(clsDriver.FindByDriverID((int)dgvIntLicenseApplications.SelectedCells[1].Value).PersonID);
             frm.ShowDialog();
         }
 
