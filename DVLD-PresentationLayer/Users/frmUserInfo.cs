@@ -22,6 +22,10 @@ namespace DVLD.Users
         private void frmUserInfo_Load(object sender, EventArgs e)
         {
             ctrlUserInformation1.LoadUserInfo(_UserID);
+            if(ctrlUserInformation1.UserID == -1)
+            {
+                this.Close();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

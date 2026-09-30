@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserInfo));
-            this.ctrlUserInformation1 = new DVLD.Users.Controls.ctrlUserInformation();
+            this.ctrlUserInformation1 = new DVLD.Users.Controls.ctrlUserCard();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -67,6 +67,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmUserInfo";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Info";
             this.Load += new System.EventHandler(this.frmUserInfo_Load);
@@ -76,7 +77,7 @@
 
         #endregion
 
-        private Controls.ctrlUserInformation ctrlUserInformation1;
+        private Controls.ctrlUserCard ctrlUserInformation1;
         private System.Windows.Forms.Button button1;
     }
 }

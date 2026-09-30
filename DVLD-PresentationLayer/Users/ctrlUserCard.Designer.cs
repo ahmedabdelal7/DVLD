@@ -1,6 +1,6 @@
 ﻿namespace DVLD.Users.Controls
 {
-    partial class ctrlUserInformation
+    partial class ctrlUserCard
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlPersonDetails1 = new DVLD.People.Controls.ctrlPersonCard();
+            this.ctrlPersonCard1 = new DVLD.People.Controls.ctrlPersonCard();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblUserID = new System.Windows.Forms.Label();
-            this.lblUserName = new System.Windows.Forms.Label();
             this.lblIsActive = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblUserID = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ctrlPersonDetails1
+            // ctrlPersonCard1
             // 
-            this.ctrlPersonDetails1.Location = new System.Drawing.Point(19, 21);
-            this.ctrlPersonDetails1.Name = "ctrlPersonDetails1";
-            this.ctrlPersonDetails1.Size = new System.Drawing.Size(887, 289);
-            this.ctrlPersonDetails1.TabIndex = 0;
+            this.ctrlPersonCard1.Location = new System.Drawing.Point(19, 21);
+            this.ctrlPersonCard1.Name = "ctrlPersonCard1";
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(887, 289);
+            this.ctrlPersonCard1.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -62,25 +62,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Login Information";
             // 
-            // label1
+            // lblIsActive
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(163, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "User ID: ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(412, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 20);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "UserName: ";
+            this.lblIsActive.AutoSize = true;
+            this.lblIsActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIsActive.Location = new System.Drawing.Point(754, 46);
+            this.lblIsActive.Name = "lblIsActive";
+            this.lblIsActive.Size = new System.Drawing.Size(39, 20);
+            this.lblIsActive.TabIndex = 0;
+            this.lblIsActive.Text = "[??]";
             // 
             // label3
             // 
@@ -92,16 +82,6 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Is Active";
             // 
-            // lblUserID
-            // 
-            this.lblUserID.AutoSize = true;
-            this.lblUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserID.Location = new System.Drawing.Point(250, 46);
-            this.lblUserID.Name = "lblUserID";
-            this.lblUserID.Size = new System.Drawing.Size(38, 20);
-            this.lblUserID.TabIndex = 0;
-            this.lblUserID.Text = "N/A";
-            // 
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
@@ -112,24 +92,44 @@
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "[??]";
             // 
-            // lblIsActive
+            // label2
             // 
-            this.lblIsActive.AutoSize = true;
-            this.lblIsActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIsActive.Location = new System.Drawing.Point(754, 46);
-            this.lblIsActive.Name = "lblIsActive";
-            this.lblIsActive.Size = new System.Drawing.Size(39, 20);
-            this.lblIsActive.TabIndex = 0;
-            this.lblIsActive.Text = "[??]";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(412, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "UserName: ";
             // 
-            // ctrlUserInformation
+            // lblUserID
+            // 
+            this.lblUserID.AutoSize = true;
+            this.lblUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserID.Location = new System.Drawing.Point(250, 46);
+            this.lblUserID.Name = "lblUserID";
+            this.lblUserID.Size = new System.Drawing.Size(38, 20);
+            this.lblUserID.TabIndex = 0;
+            this.lblUserID.Text = "N/A";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(163, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "User ID: ";
+            // 
+            // ctrlUserCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.ctrlPersonDetails1);
-            this.Name = "ctrlUserInformation";
+            this.Controls.Add(this.ctrlPersonCard1);
+            this.Name = "ctrlUserCard";
             this.Size = new System.Drawing.Size(924, 435);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -139,7 +139,7 @@
 
         #endregion
 
-        private People.Controls.ctrlPersonCard ctrlPersonDetails1;
+        private People.Controls.ctrlPersonCard ctrlPersonCard1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblIsActive;
         private System.Windows.Forms.Label label3;

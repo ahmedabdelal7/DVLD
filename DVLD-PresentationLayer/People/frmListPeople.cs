@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace DVLD.People
 {
-    public partial class frmManagePeople : Form
+    public partial class frmListPeople : Form
     {
-        public frmManagePeople()
+        public frmListPeople()
         {
             InitializeComponent();
             
@@ -29,6 +29,8 @@ namespace DVLD.People
         DataTable _dtPeople;
         private int _PageNumber = 1; //default = 1
         private int _RowsPerPage = 12;
+
+       
         async private void frmManagePeople_Load(object sender, EventArgs e)
         {
 
@@ -124,7 +126,7 @@ namespace DVLD.People
             int PersonID = _GetSelectedPersonID();
 
             frmAddEditPerson editPerson = new frmAddEditPerson(PersonID);
-           // editPerson.IsSaved += _RefreshPeopleList;
+            editPerson.IsSaved += _RefreshPeople; //refresh if data changed
             editPerson.ShowDialog();
         }
 
@@ -149,14 +151,15 @@ namespace DVLD.People
                // _RefreshPeopleList();
                 MessageBox.Show("Person deleted successfully.", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                          
+                _RefreshPeople();
                 return;
             }
 
             //referential integrity.
             MessageBox.Show("Failed to this person because he has a related data in the system!",
                 "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;            
+            
+            
 
         }
         private void _ShowPersonDetails()
@@ -273,6 +276,24 @@ namespace DVLD.People
 
         private int _LastScrollValue = 0;
         private int _PrevRowsCount = 0;
+        async private void _RefreshPeople(bool doRefresh = true)
+        {
+            if (!doRefresh) return;
+
+            _PageNumber = 1;
+            _LastScrollValue = 0;
+            _PrevRowsCount = 0;
+
+            DataTable tempTable = await clsPerson.GetPeopleAsync(_PageNumber, _RowsPerPage);
+
+            _dtPeople = tempTable.DefaultView
+                        .ToTable(false, "PersonID", "NationalNo", "FirstName", "SecondName",
+                                    "ThirdName", "LastName", "Gender", "DateOfBirth",
+                                    "Phone", "Email", "CountryName");
+            dgvPeople.DataSource = _dtPeople;
+            dgvPeople.Update();
+            lblRecords.Text = dgvPeople.RowCount.ToString();
+        }
 
         async private void _FetchNextPeople(int nextPage)
         {

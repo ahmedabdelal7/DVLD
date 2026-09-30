@@ -223,11 +223,6 @@ namespace DVLD.Users
                 errorProvider1.SetError(txtConfirmPassword, null);
             };
         }
-        private void frmAddEditUser_Activated(object sender, EventArgs e)
-        {
-            ctrlPersonCardWithFilter1.FilterFocus();
-            
-        }
         private void ctrlPersonCardWithFilter1_OnPersonSelected(int obj)
         {
             _PersonID = obj;
@@ -241,6 +236,11 @@ namespace DVLD.Users
                 btnNext.Enabled = true;
             }
 
+        }
+
+        private void frmAddEditUser_Activated(object sender, EventArgs e)
+        {
+            ctrlPersonCardWithFilter1.FilterFocus();
         }
     }
 }

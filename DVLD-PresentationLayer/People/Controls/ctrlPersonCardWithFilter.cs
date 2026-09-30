@@ -147,13 +147,15 @@ namespace DVLD.People.Controls
             frmAddEditPerson frmAddNewPerson = new frmAddEditPerson();
             frmAddNewPerson.DataBack += DataBack;
             frmAddNewPerson.ShowDialog();
+     
         }
 
         private void DataBack(int personID)
         {
-            txtFilterValue.Text = personID.ToString();
             cbFilterBy.SelectedIndex = 1;
-            ctrlPersonCard1.LoadPersonInfo(personID);
+            txtFilterValue.Text = personID.ToString();
+            //ctrlPersonCard1.LoadPersonInfo(personID);
+            btnFind.PerformClick();
         }
 
         public void FilterFocus()

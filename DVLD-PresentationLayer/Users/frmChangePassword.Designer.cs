@@ -36,7 +36,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.ctrlUserInformation1 = new DVLD.Users.Controls.ctrlUserInformation();
+            this.ctrlUserInformation1 = new DVLD.Users.Controls.ctrlUserCard();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -206,6 +206,7 @@
             this.Controls.Add(this.ctrlUserInformation1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmChangePassword";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change Password";
             this.Load += new System.EventHandler(this.frmChangePassword_Load);
@@ -231,7 +232,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private Controls.ctrlUserInformation ctrlUserInformation1;
+        private Controls.ctrlUserCard ctrlUserInformation1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

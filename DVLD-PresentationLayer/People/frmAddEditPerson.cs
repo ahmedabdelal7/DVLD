@@ -145,7 +145,8 @@ namespace DVLD.People
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
-           //DataBack?.Invoke(_PersonID);
+            //if(_PersonID != -1)
+            //    DataBack?.Invoke(_PersonID);
 
             this.Close();
         }

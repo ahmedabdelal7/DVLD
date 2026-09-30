@@ -333,6 +333,7 @@
             this.Name = "frmAddEditUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add/Edit User";
+            this.Activated += new System.EventHandler(this.frmAddEditUser_Activated);
             this.Load += new System.EventHandler(this.frmAddEditUser_Load);
             this.tpLoginInfo.ResumeLayout(false);
             this.tpLoginInfo.PerformLayout();

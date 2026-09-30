@@ -47,8 +47,9 @@ namespace DVLD.People.Controls
 
         }
 
-        public void _ResetDefaultValues()
+        public void ResetDefaultValues()
         {
+            _PersonID = -1;
             lblPersonID.Text = "N/A";
             lblNationalNo.Text = "[???]";
             lblName.Text = "[???]";
@@ -82,30 +83,25 @@ namespace DVLD.People.Controls
         }
         public void LoadPersonInfo(int personID)
         {
-            _PersonID = -1;
             _Person = clsPerson.Find(personID);
             if( _Person == null)
             {
-                _ResetDefaultValues();
-                MessageBox.Show($"This person with ID {_Person.PersonID.ToString()} is not found", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResetDefaultValues();
+                MessageBox.Show($"This person with ID {personID} is not found", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             _FillPersonInfo();
         }
 
         public void LoadPersonInfo( string NationalNo)
         {
-            _PersonID = -1;
-
             _Person = clsPerson.Find(NationalNo);
             if (_Person == null)
             {
-                _ResetDefaultValues();
+                ResetDefaultValues();
                 MessageBox.Show($"This person is not found", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             _FillPersonInfo();
         }
 

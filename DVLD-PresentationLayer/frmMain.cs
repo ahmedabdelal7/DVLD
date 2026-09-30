@@ -47,7 +47,7 @@ namespace DVLD
 
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmManagePeople frmManagePeople = new frmManagePeople();
+            frmListPeople frmManagePeople = new frmListPeople();
            // frmManagePeople.MdiParent = this;
             frmManagePeople.Show();
 
@@ -55,7 +55,7 @@ namespace DVLD
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmManageUsers frmManageUsers = new frmManageUsers();
+            frmListUsers frmManageUsers = new frmListUsers();
             frmManageUsers.ShowDialog();
         }
 

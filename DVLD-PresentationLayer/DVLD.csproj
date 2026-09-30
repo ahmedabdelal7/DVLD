@@ -222,11 +222,11 @@
     <Compile Include="People\frmFindPerson.Designer.cs">
       <DependentUpon>frmFindPerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\frmManagePeople.cs">
+    <Compile Include="People\frmListPeople.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="People\frmManagePeople.Designer.cs">
-      <DependentUpon>frmManagePeople.cs</DependentUpon>
+    <Compile Include="People\frmListPeople.Designer.cs">
+      <DependentUpon>frmListPeople.cs</DependentUpon>
     </Compile>
     <Compile Include="People\frmShowPersonInfo.cs">
       <SubType>Form</SubType>
@@ -272,11 +272,11 @@
     <Compile Include="Tests\Test Appointments\frmScheduleTest.Designer.cs">
       <DependentUpon>frmScheduleTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Users\Controls\ctrlUserInformation.cs">
+    <Compile Include="Users\ctrlUserCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Users\Controls\ctrlUserInformation.Designer.cs">
-      <DependentUpon>ctrlUserInformation.cs</DependentUpon>
+    <Compile Include="Users\ctrlUserCard.Designer.cs">
+      <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Users\frmAddEditUser.cs">
       <SubType>Form</SubType>
@@ -290,11 +290,11 @@
     <Compile Include="Users\frmChangePassword.Designer.cs">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Users\frmManageUsers.cs">
+    <Compile Include="Users\frmListUsers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Users\frmManageUsers.Designer.cs">
-      <DependentUpon>frmManageUsers.cs</DependentUpon>
+    <Compile Include="Users\frmListUsers.Designer.cs">
+      <DependentUpon>frmListUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Users\frmUserInfo.cs">
       <SubType>Form</SubType>
@@ -386,8 +386,8 @@
     <EmbeddedResource Include="People\frmFindPerson.resx">
       <DependentUpon>frmFindPerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\frmManagePeople.resx">
-      <DependentUpon>frmManagePeople.cs</DependentUpon>
+    <EmbeddedResource Include="People\frmListPeople.resx">
+      <DependentUpon>frmListPeople.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmShowPersonInfo.resx">
       <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
@@ -420,8 +420,8 @@
     <EmbeddedResource Include="Tests\Test Appointments\frmScheduleTest.resx">
       <DependentUpon>frmScheduleTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Users\Controls\ctrlUserInformation.resx">
-      <DependentUpon>ctrlUserInformation.cs</DependentUpon>
+    <EmbeddedResource Include="Users\ctrlUserCard.resx">
+      <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\frmAddEditUser.resx">
       <DependentUpon>frmAddEditUser.cs</DependentUpon>
@@ -429,8 +429,8 @@
     <EmbeddedResource Include="Users\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Users\frmManageUsers.resx">
-      <DependentUpon>frmManageUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Users\frmListUsers.resx">
+      <DependentUpon>frmListUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\frmUserInfo.resx">
       <DependentUpon>frmUserInfo.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace DVLD.People
 {
-    partial class frmManagePeople
+    partial class frmListPeople
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManagePeople));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPeople));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPeople = new System.Windows.Forms.DataGridView();
             this.msManagePeople = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -51,6 +51,8 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressIndictior = new Guna.UI2.WinForms.Guna2WinProgressIndicator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).BeginInit();
             this.msManagePeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -107,13 +109,15 @@
             // 
             this.msManagePeople.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showDetailsToolStripMenuItem,
+            this.toolStripSeparator1,
             this.addNewPersonToolStripMenuItem,
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
+            this.toolStripSeparator2,
             this.sendEmailToolStripMenuItem,
             this.phoneCallToolStripMenuItem});
             this.msManagePeople.Name = "msManagePeople";
-            this.msManagePeople.Size = new System.Drawing.Size(212, 232);
+            this.msManagePeople.Size = new System.Drawing.Size(212, 244);
             this.msManagePeople.Opening += new System.ComponentModel.CancelEventHandler(this.msManagePeople_Opening);
             // 
             // showDetailsToolStripMenuItem
@@ -286,7 +290,17 @@
             this.progressIndictior.TabIndex = 8;
             this.progressIndictior.Visible = false;
             // 
-            // frmManagePeople
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(208, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(208, 6);
+            // 
+            // frmListPeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -306,7 +320,7 @@
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmManagePeople";
+            this.Name = "frmListPeople";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmManagePeople";
             this.Load += new System.EventHandler(this.frmManagePeople_Load);
@@ -338,5 +352,7 @@
         private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem phoneCallToolStripMenuItem;
         private Guna.UI2.WinForms.Guna2WinProgressIndicator progressIndictior;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DVLD.Users
 {
-    partial class frmManageUsers
+    partial class frmListUsers
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManageUsers));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListUsers));
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PersonID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,10 +41,12 @@
             this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.msShowDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.msAddNewUser = new System.Windows.Forms.ToolStripMenuItem();
             this.msEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.msDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.msChangePassword = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.msSendEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.msPhoneCall = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
@@ -102,6 +104,7 @@
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsers.Size = new System.Drawing.Size(1057, 313);
             this.dgvUsers.TabIndex = 10;
+            this.dgvUsers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellDoubleClick);
             // 
             // UserID
             // 
@@ -139,30 +142,37 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.msShowDetails,
+            this.toolStripSeparator1,
             this.msAddNewUser,
             this.msEdit,
             this.msDelete,
             this.msChangePassword,
+            this.toolStripSeparator2,
             this.msSendEmail,
             this.msPhoneCall});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(210, 270);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(220, 282);
             // 
             // msShowDetails
             // 
             this.msShowDetails.Image = ((System.Drawing.Image)(resources.GetObject("msShowDetails.Image")));
             this.msShowDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msShowDetails.Name = "msShowDetails";
-            this.msShowDetails.Size = new System.Drawing.Size(209, 38);
+            this.msShowDetails.Size = new System.Drawing.Size(219, 38);
             this.msShowDetails.Text = "Show Details";
             this.msShowDetails.Click += new System.EventHandler(this.msShowDetails_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(216, 6);
             // 
             // msAddNewUser
             // 
             this.msAddNewUser.Image = ((System.Drawing.Image)(resources.GetObject("msAddNewUser.Image")));
             this.msAddNewUser.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msAddNewUser.Name = "msAddNewUser";
-            this.msAddNewUser.Size = new System.Drawing.Size(209, 38);
+            this.msAddNewUser.Size = new System.Drawing.Size(219, 38);
             this.msAddNewUser.Text = "Add New User";
             this.msAddNewUser.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -171,7 +181,7 @@
             this.msEdit.Image = ((System.Drawing.Image)(resources.GetObject("msEdit.Image")));
             this.msEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msEdit.Name = "msEdit";
-            this.msEdit.Size = new System.Drawing.Size(209, 38);
+            this.msEdit.Size = new System.Drawing.Size(219, 38);
             this.msEdit.Text = "Edit";
             this.msEdit.Click += new System.EventHandler(this.msEdit_Click);
             // 
@@ -180,7 +190,7 @@
             this.msDelete.Image = ((System.Drawing.Image)(resources.GetObject("msDelete.Image")));
             this.msDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msDelete.Name = "msDelete";
-            this.msDelete.Size = new System.Drawing.Size(209, 38);
+            this.msDelete.Size = new System.Drawing.Size(219, 38);
             this.msDelete.Text = "Delete";
             this.msDelete.Click += new System.EventHandler(this.msDelete_Click);
             // 
@@ -189,16 +199,21 @@
             this.msChangePassword.Image = ((System.Drawing.Image)(resources.GetObject("msChangePassword.Image")));
             this.msChangePassword.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msChangePassword.Name = "msChangePassword";
-            this.msChangePassword.Size = new System.Drawing.Size(209, 38);
+            this.msChangePassword.Size = new System.Drawing.Size(219, 38);
             this.msChangePassword.Text = "Change Password";
             this.msChangePassword.Click += new System.EventHandler(this.msChangePassword_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(216, 6);
             // 
             // msSendEmail
             // 
             this.msSendEmail.Image = ((System.Drawing.Image)(resources.GetObject("msSendEmail.Image")));
             this.msSendEmail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msSendEmail.Name = "msSendEmail";
-            this.msSendEmail.Size = new System.Drawing.Size(209, 38);
+            this.msSendEmail.Size = new System.Drawing.Size(219, 38);
             this.msSendEmail.Text = "Send Email";
             this.msSendEmail.Click += new System.EventHandler(this.msSendEmail_Click);
             // 
@@ -207,7 +222,7 @@
             this.msPhoneCall.Image = ((System.Drawing.Image)(resources.GetObject("msPhoneCall.Image")));
             this.msPhoneCall.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.msPhoneCall.Name = "msPhoneCall";
-            this.msPhoneCall.Size = new System.Drawing.Size(209, 38);
+            this.msPhoneCall.Size = new System.Drawing.Size(219, 38);
             this.msPhoneCall.Text = "Phone Call";
             this.msPhoneCall.Click += new System.EventHandler(this.msPhoneCall_Click);
             // 
@@ -294,7 +309,7 @@
             "No"});
             this.cbIsActive.Location = new System.Drawing.Point(291, 318);
             this.cbIsActive.Name = "cbIsActive";
-            this.cbIsActive.Size = new System.Drawing.Size(178, 28);
+            this.cbIsActive.Size = new System.Drawing.Size(128, 28);
             this.cbIsActive.TabIndex = 20;
             this.cbIsActive.SelectedIndexChanged += new System.EventHandler(this.cbIsActive_SelectedIndexChanged);
             // 
@@ -336,7 +351,7 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
-            // frmManageUsers
+            // frmListUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -354,7 +369,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmManageUsers";
+            this.Name = "frmListUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manage Users";
             this.Load += new System.EventHandler(this.frmManageUsers_Load);
@@ -392,5 +407,7 @@
         private System.Windows.Forms.ToolStripMenuItem msPhoneCall;
         private System.Windows.Forms.TextBox txtFilterValue;
         private System.Windows.Forms.ComboBox cbIsActive;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
