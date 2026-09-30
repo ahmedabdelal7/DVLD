@@ -1,7 +1,7 @@
 ﻿using DVLD.Common_Classes;
 using DVLD.Licenses;
 using DVLD.Licenses.International_Driving_License;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

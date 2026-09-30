@@ -3,7 +3,7 @@ using DVLD.Common_Classes;
 using DVLD.License;
 using DVLD.Licenses;
 using DVLD.Tests;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

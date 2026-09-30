@@ -332,7 +332,7 @@ namespace DVLD_DataAccessLayer
         }
 
 
-        public static async Task<DataTable> GetPeoples(int PageNumber, int RowPerPage)
+        public static async Task<DataTable> GetPeopleAsync(int PageNumber, int RowPerPage)
         {
             DataTable dataTable = new DataTable();
 
@@ -350,7 +350,14 @@ namespace DVLD_DataAccessLayer
                         await connection.OpenAsync();
                         //connection.Open();
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        //Should all function in call stack be async
+                        //using (SqlDataReader reader = command.ExecuteReaderAsync())
+                        //{
+                        //    dataTable.Load(reader);
+                        //}
+
+
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             dataTable.Load(reader);
                         }

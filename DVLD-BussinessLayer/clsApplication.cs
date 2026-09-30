@@ -7,7 +7,7 @@ using System.Data;
 using DVLD_DataAccessLayer;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace DVLD_BussinessLayer
+namespace DVLD_BusinessLayer
 {
     public class clsApplication
     {

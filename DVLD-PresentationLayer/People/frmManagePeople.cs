@@ -1,5 +1,5 @@
 ﻿using DVLD.Common_Classes;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,13 +29,13 @@ namespace DVLD.People
         DataTable _dtPeople;
         private int _PageNumber = 1; //default = 1
         private int _RowsPerPage = 12;
-        private void frmManagePeople_Load(object sender, EventArgs e)
+        async private void frmManagePeople_Load(object sender, EventArgs e)
         {
 
             cbFilter.SelectedIndex = 0;
             txtFilterText.Visible = false;
 
-            DataTable tempTable = clsPerson.GetPeople(_PageNumber, _RowsPerPage).GetAwaiter().GetResult();
+            DataTable tempTable = await  clsPerson.GetPeopleAsync(_PageNumber, _RowsPerPage);
 
             _dtPeople = tempTable.DefaultView
                         .ToTable(false, "PersonID", "NationalNo", "FirstName", "SecondName",
@@ -279,12 +279,17 @@ namespace DVLD.People
             progressIndictior.Visible = true;
             progressIndictior.Start();
 
-            await Task.Delay(1000);
+            
+            DataTable dtNextPeople = await clsPerson.GetPeopleAsync(nextPage, _RowsPerPage);
+            await Task.Delay(1000);// async -- wait for 1 second then continue
 
             progressIndictior.Visible = false;
-            progressIndictior.Stop();
-          
-            DataTable dtNextPeople = clsPerson.GetPeople(nextPage, _RowsPerPage).GetAwaiter().GetResult();
+            progressIndictior.Stop();                       
+            
+
+            //DataTable dtNextPeople = clsPerson.GetPeopleAsync(nextPage, _RowsPerPage).GetAwaiter().GetResult();
+            //DataTable dtNextPeople = clsPerson.GetPeopleAsync(nextPage, _RowsPerPage).Result;
+            //
 
             _PrevRowsCount = dgvPeople.RowCount;
 

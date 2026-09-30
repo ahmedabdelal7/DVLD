@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DVLD_BussinessLayer
+namespace DVLD_BusinessLayer
 {
     public class clsPerson
     {
@@ -141,10 +141,10 @@ namespace DVLD_BussinessLayer
             return clsPersonData.GetAllPeople();
         }
 
-        async public static Task< DataTable> GetPeople(int PageNumber, int RowsPerPage)
+        async public static Task< DataTable> GetPeopleAsync(int PageNumber, int RowsPerPage)
         {
              
-             return await clsPersonData.GetPeoples(PageNumber, RowsPerPage);
+             return await clsPersonData.GetPeopleAsync(PageNumber, RowsPerPage);
         }
 
         public bool Save()

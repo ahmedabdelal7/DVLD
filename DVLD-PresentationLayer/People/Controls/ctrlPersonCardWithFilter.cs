@@ -1,5 +1,5 @@
 ﻿using DVLD.Common_Classes;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +46,7 @@ namespace DVLD.People.Controls
         }
 
 
-        int _PersonID = -1;
+        //int _PersonID = -1;
         public int PersonID => ctrlPersonCard1.PersonID;
 
         public clsPerson SelectedPerson =>
@@ -74,7 +74,7 @@ namespace DVLD.People.Controls
             if (OnPersonSelected != null && FilterEnabled)
                 // Raise the event with a parameter
                 OnPersonSelected.Invoke(PersonID);
-                OnPersonSelected(ctrlPersonCard1.PersonID);
+                //OnPersonSelected(ctrlPersonCard1.PersonID);
         }
 
         public void LoadPersonInfo(int PersonID)

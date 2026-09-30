@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_BussinessLayer
+namespace DVLD_BusinessLayer
 {
     public class clsApplicationType
     {

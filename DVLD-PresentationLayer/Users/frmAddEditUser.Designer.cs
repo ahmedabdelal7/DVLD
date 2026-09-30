@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddEditUser));
             this.lblAddEditUser = new System.Windows.Forms.Label();
-            this.tabLoginInfo = new System.Windows.Forms.TabPage();
+            this.tpLoginInfo = new System.Windows.Forms.TabPage();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.chkIsActive = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -45,19 +45,19 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPersonInfo = new System.Windows.Forms.TabPage();
+            this.tpPersonInfo = new System.Windows.Forms.TabPage();
+            this.ctrlPersonCardWithFilter1 = new DVLD.People.Controls.ctrlPersonCardWithFilter();
             this.btnNext = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ctrlPersonCardWithFilter1 = new DVLD.People.Controls.ctrlPersonCardWithFilter();
-            this.tabLoginInfo.SuspendLayout();
+            this.tpLoginInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.tabPersonInfo.SuspendLayout();
+            this.tpPersonInfo.SuspendLayout();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -73,29 +73,29 @@
             this.lblAddEditUser.Text = "Add New Users";
             this.lblAddEditUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabLoginInfo
+            // tpLoginInfo
             // 
-            this.tabLoginInfo.BackColor = System.Drawing.Color.White;
-            this.tabLoginInfo.Controls.Add(this.txtUserName);
-            this.tabLoginInfo.Controls.Add(this.chkIsActive);
-            this.tabLoginInfo.Controls.Add(this.pictureBox1);
-            this.tabLoginInfo.Controls.Add(this.lblUserID);
-            this.tabLoginInfo.Controls.Add(this.label1);
-            this.tabLoginInfo.Controls.Add(this.pictureBox4);
-            this.tabLoginInfo.Controls.Add(this.pictureBox3);
-            this.tabLoginInfo.Controls.Add(this.pictureBox2);
-            this.tabLoginInfo.Controls.Add(this.txtConfirmPassword);
-            this.tabLoginInfo.Controls.Add(this.txtPassword);
-            this.tabLoginInfo.Controls.Add(this.label5);
-            this.tabLoginInfo.Controls.Add(this.label4);
-            this.tabLoginInfo.Controls.Add(this.label2);
-            this.tabLoginInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tabLoginInfo.Location = new System.Drawing.Point(4, 29);
-            this.tabLoginInfo.Name = "tabLoginInfo";
-            this.tabLoginInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLoginInfo.Size = new System.Drawing.Size(1080, 566);
-            this.tabLoginInfo.TabIndex = 1;
-            this.tabLoginInfo.Text = "Login Info";
+            this.tpLoginInfo.BackColor = System.Drawing.Color.White;
+            this.tpLoginInfo.Controls.Add(this.txtUserName);
+            this.tpLoginInfo.Controls.Add(this.chkIsActive);
+            this.tpLoginInfo.Controls.Add(this.pictureBox1);
+            this.tpLoginInfo.Controls.Add(this.lblUserID);
+            this.tpLoginInfo.Controls.Add(this.label1);
+            this.tpLoginInfo.Controls.Add(this.pictureBox4);
+            this.tpLoginInfo.Controls.Add(this.pictureBox3);
+            this.tpLoginInfo.Controls.Add(this.pictureBox2);
+            this.tpLoginInfo.Controls.Add(this.txtConfirmPassword);
+            this.tpLoginInfo.Controls.Add(this.txtPassword);
+            this.tpLoginInfo.Controls.Add(this.label5);
+            this.tpLoginInfo.Controls.Add(this.label4);
+            this.tpLoginInfo.Controls.Add(this.label2);
+            this.tpLoginInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tpLoginInfo.Location = new System.Drawing.Point(4, 29);
+            this.tpLoginInfo.Name = "tpLoginInfo";
+            this.tpLoginInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tpLoginInfo.Size = new System.Drawing.Size(1080, 566);
+            this.tpLoginInfo.TabIndex = 1;
+            this.tpLoginInfo.Text = "Login Info";
             // 
             // txtUserName
             // 
@@ -233,19 +233,29 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Username: ";
             // 
-            // tabPersonInfo
+            // tpPersonInfo
             // 
-            this.tabPersonInfo.BackColor = System.Drawing.Color.White;
-            this.tabPersonInfo.Controls.Add(this.ctrlPersonCardWithFilter1);
-            this.tabPersonInfo.Controls.Add(this.btnNext);
-            this.tabPersonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPersonInfo.Location = new System.Drawing.Point(4, 29);
-            this.tabPersonInfo.Name = "tabPersonInfo";
-            this.tabPersonInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPersonInfo.Size = new System.Drawing.Size(1080, 566);
-            this.tabPersonInfo.TabIndex = 0;
-            this.tabPersonInfo.Text = "Person Info";
-            this.tabPersonInfo.Click += new System.EventHandler(this.tabPersonInfo_Click);
+            this.tpPersonInfo.BackColor = System.Drawing.Color.White;
+            this.tpPersonInfo.Controls.Add(this.ctrlPersonCardWithFilter1);
+            this.tpPersonInfo.Controls.Add(this.btnNext);
+            this.tpPersonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tpPersonInfo.Location = new System.Drawing.Point(4, 29);
+            this.tpPersonInfo.Name = "tpPersonInfo";
+            this.tpPersonInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPersonInfo.Size = new System.Drawing.Size(1080, 566);
+            this.tpPersonInfo.TabIndex = 0;
+            this.tpPersonInfo.Text = "Person Info";
+            // 
+            // ctrlPersonCardWithFilter1
+            // 
+            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.FilterEnabled = true;
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(12, 6);
+            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
+            this.ctrlPersonCardWithFilter1.ShowAddPerson = true;
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(1056, 499);
+            this.ctrlPersonCardWithFilter1.TabIndex = 19;
+            this.ctrlPersonCardWithFilter1.OnPersonSelected += new System.Action<int>(this.ctrlPersonCardWithFilter1_OnPersonSelected);
             // 
             // btnNext
             // 
@@ -264,8 +274,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPersonInfo);
-            this.tabControl1.Controls.Add(this.tabLoginInfo);
+            this.tabControl1.Controls.Add(this.tpPersonInfo);
+            this.tabControl1.Controls.Add(this.tpLoginInfo);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(27, 128);
             this.tabControl1.Name = "tabControl1";
@@ -308,17 +318,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // ctrlPersonCardWithFilter1
-            // 
-            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = true;
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(12, 6);
-            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.ShowAddPerson = true;
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(1056, 499);
-            this.ctrlPersonCardWithFilter1.TabIndex = 19;
-            this.ctrlPersonCardWithFilter1.OnPersonSelected += new System.Action<int>(this.ctrlPersonCardWithFilter1_OnPersonSelected);
-            // 
             // frmAddEditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,13 +334,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add/Edit User";
             this.Load += new System.EventHandler(this.frmAddEditUser_Load);
-            this.tabLoginInfo.ResumeLayout(false);
-            this.tabLoginInfo.PerformLayout();
+            this.tpLoginInfo.ResumeLayout(false);
+            this.tpLoginInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.tabPersonInfo.ResumeLayout(false);
+            this.tpPersonInfo.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -350,8 +349,8 @@
 
         #endregion
         private System.Windows.Forms.Label lblAddEditUser;
-        private System.Windows.Forms.TabPage tabLoginInfo;
-        private System.Windows.Forms.TabPage tabPersonInfo;
+        private System.Windows.Forms.TabPage tpLoginInfo;
+        private System.Windows.Forms.TabPage tpPersonInfo;
         private People.Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.TabControl tabControl1;

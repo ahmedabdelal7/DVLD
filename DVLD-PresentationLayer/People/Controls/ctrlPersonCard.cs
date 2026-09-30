@@ -1,6 +1,6 @@
 ﻿using DVLD.Properties;
 using DVLD_BusinessLayer;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -82,7 +82,7 @@ namespace DVLD.People.Controls
         }
         public void LoadPersonInfo(int personID)
         {
-
+            _PersonID = -1;
             _Person = clsPerson.Find(personID);
             if( _Person == null)
             {
@@ -96,6 +96,8 @@ namespace DVLD.People.Controls
 
         public void LoadPersonInfo( string NationalNo)
         {
+            _PersonID = -1;
+
             _Person = clsPerson.Find(NationalNo);
             if (_Person == null)
             {

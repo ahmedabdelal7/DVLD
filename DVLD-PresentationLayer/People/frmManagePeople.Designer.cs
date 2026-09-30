@@ -276,6 +276,7 @@
             // 
             // progressIndictior
             // 
+            this.progressIndictior.AnimationSpeed = 85;
             this.progressIndictior.BackColor = System.Drawing.Color.Transparent;
             this.progressIndictior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.progressIndictior.CircleSize = 1F;

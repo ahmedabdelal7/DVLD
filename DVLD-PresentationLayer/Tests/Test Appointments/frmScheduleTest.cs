@@ -1,6 +1,6 @@
 ﻿using DVLD.Common_Classes;
 using DVLD.Properties;
-using DVLD_BussinessLayer;
+using DVLD_BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static DVLD_BussinessLayer.clsTestType;
+using static DVLD_BusinessLayer.clsTestType;
 
 namespace DVLD.Tests
 {

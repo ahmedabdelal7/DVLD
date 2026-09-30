@@ -14,39 +14,39 @@ namespace DVLD_DataAccessLayer
         {
             int UserID = -1;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"INSERT INTO Users (PersonID, UserName, Password, IsActive)
-                             VALUES
-                             (@PersonID, @UserName, @Password, @IsActive);
-
-                             SELECT CAST(SCOPE_IDENTITY() AS INT);";
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@PersonID", PersonID);
-            command.Parameters.AddWithValue("@UserName", UserName);
-            command.Parameters.AddWithValue("@Password", Password);
-            command.Parameters.AddWithValue("@IsActive", IsActive);
-
-            //...
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = @"INSERT INTO Users (PersonID, UserName, Password, IsActive)
+                                VALUES
+                                (@PersonID, @UserName, @Password, @IsActive);
+                                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-                object result = command.ExecuteScalar();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
 
-                if (result != null && int.TryParse(result.ToString(), out int InsertedID))
-                    UserID = InsertedID;
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@Password", Password);
+                    command.Parameters.AddWithValue("@IsActive", IsActive);
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                connection.Close();
+                    //...
+
+                    try
+                    {
+                        connection.Open();
+
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && int.TryParse(result.ToString(), out int InsertedID))
+                            UserID = InsertedID;
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+
             }
 
             return UserID;
@@ -55,35 +55,34 @@ namespace DVLD_DataAccessLayer
         {
             int rowsAffected = 0;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"UPDATE Users
-                                 SET UserName = @UserName,
-								     Password = @Password,
-								     IsActive = @IsActive
-                                 WHERE UserID = @UserID;";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@UserID", UserID);
-            command.Parameters.AddWithValue("@UserName", UserName);
-            command.Parameters.AddWithValue("@Password", Password);
-            command.Parameters.AddWithValue("@IsActive", IsActive);
-
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
 
-                rowsAffected = command.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                connection.Close();
+                string query = @"UPDATE Users
+                                SET UserName = @UserName,
+								    Password = @Password,
+								    IsActive = @IsActive
+                                WHERE UserID = @UserID;";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@Password", Password);
+                    command.Parameters.AddWithValue("@IsActive", IsActive);
+
+
+                    try
+                    {
+                        connection.Open();
+
+                        rowsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
 
             return (rowsAffected > 0);
@@ -92,27 +91,27 @@ namespace DVLD_DataAccessLayer
         {
             int rowsAffected = 0;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "DELETE FROM Users WHERE UserID = @UserID;";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserID", UserID);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = "DELETE FROM Users WHERE UserID = @UserID;";
 
-                rowsAffected = command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+                    try
+                    {
+                        connection.Open();
+
+                        rowsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                connection.Close();
-            }
+
 
             return (rowsAffected > 0);
         }
@@ -120,358 +119,200 @@ namespace DVLD_DataAccessLayer
         {
             bool IsFound = false;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM Users WHERE UserID = @UserID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserID", UserID);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
 
-                SqlDataReader reader = command.ExecuteReader();
+                string query = "SELECT * FROM Users WHERE UserID = @UserID";
 
-                if (reader.Read())
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    IsFound = true;
 
-                    PersonID = Convert.ToInt32(reader["PersonID"]);
-                    UserName = reader["UserName"].ToString();
-                    Password = reader["Password"].ToString();
-                    IsActive = Convert.ToBoolean(reader["IsActive"]);
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+                    try
+                    {
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                IsFound = true;
+
+                                PersonID = Convert.ToInt32(reader["PersonID"]);
+                                UserName = reader["UserName"].ToString();
+                                Password = reader["Password"].ToString();
+                                IsActive = Convert.ToBoolean(reader["IsActive"]);
+
+                            }
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+
+                    }
 
                 }
-
-                else
-                {
-                    IsFound = false;
-                }
-
-                reader.Close();
-            }
-            catch (Exception)
-            {
-                IsFound = false;
-
-            }
-            finally
-            {
-                connection.Close();
             }
 
             return IsFound;
         }
-        //public static bool GetUserByUsername(string UserName, ref int UserID, ref int PersonID, ref string Password, bool IsActive)
-        //{
-        //    bool IsFound = false;
-
-        //    SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-        //    string query = "SELECT * FROM People WHERE UserID = @UserID";
-
-        //    SqlCommand command = new SqlCommand(query, connection);
-        //    command.Parameters.AddWithValue("@UserID", UserID);
-
-        //    try
-        //    {
-        //        connection.Open();
-
-        //        SqlDataReader reader = command.ExecuteReader();
-
-        //        if (reader.Read())
-        //        {
-        //            IsFound = true;
-
-        //            PersonID = Convert.ToInt32(reader["PersonID"]);
-        //            UserName = reader["UserName"].ToString();
-        //            Password = reader["Password"].ToString();
-        //            IsActive = Convert.ToBoolean(reader["IsActive"]);
-
-        //        }
-
-        //        else
-        //        {
-        //            IsFound = false;
-        //        }
-
-        //        reader.Close();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        IsFound = false;
-
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //    return IsFound;
-        //}
-        public static bool IsUserExistByID(int UserID)
-        {
-            bool IsExist = false;
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT Found=1 FROM Users WHERE UserID = @UserID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserID", UserID);
-
-            try
-            {
-                connection.Open();
-
-                object result = command.ExecuteScalar();
-
-                IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
-
-                //Doctor approach:
-                //SqlDataReader reader = command.ExecuteReader();
-                //IsExist = reader.HasRows;
-                //reader.Close();
-
-            }
-            catch (Exception)
-            {
-                IsExist = false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return IsExist;
-        }
-        //public static bool IsUserExistByUserNameAndPassword(string UserName, string Password)
-        //{
-        //    bool IsExist = false;
-
-        //    SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-        //    string query = "SELECT Found=1 FROM Users WHERE UserName = @UserName and Password = @Password";
-
-        //    SqlCommand command = new SqlCommand(query, connection);
-        //    command.Parameters.AddWithValue("@UserName", UserName);
-        //    command.Parameters.AddWithValue("@Password", Password);
-
-        //    try
-        //    {
-        //        connection.Open();
-
-        //        object result = command.ExecuteScalar();
-
-        //        IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
-
-        //        //Doctor approach:
-        //        //SqlDataReader reader = command.ExecuteReader();
-        //        //IsExist = reader.HasRows;
-        //        //reader.Close();
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        IsExist = false;
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //    return IsExist;
-        //}
         public static bool GetUserByUserNameAndPassword(string UserName, string Password, ref int UserID, ref int PersonID, ref bool IsActive)
         {
             bool IsFound = false;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM Users WHERE UserName = @UserName and Password = @Password";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserName", UserName);
-            command.Parameters.AddWithValue("@Password", Password);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
 
-                SqlDataReader reader = command.ExecuteReader();
+                string query = "SELECT * FROM Users WHERE UserName = @UserName and Password = @Password";
 
-                if (reader.Read())
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    IsFound = true;
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@Password", Password);
 
-                    PersonID = Convert.ToInt32(reader["PersonID"]);
-                    UserID = Convert.ToInt32(reader["UserID"]);
-                    IsActive = Convert.ToBoolean(reader["IsActive"]);
+                    try
+                    {
+                        connection.Open();
 
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                IsFound = true;
+
+                                PersonID = Convert.ToInt32(reader["PersonID"]);
+                                UserID = Convert.ToInt32(reader["UserID"]);
+                                IsActive = Convert.ToBoolean(reader["IsActive"]);
+
+                            }
+                        }
+                    }
+                    catch (Exception) { throw; }
                 }
 
-                else
-                {
-                    IsFound = false;
-                }
+            }
 
-                reader.Close();
-            }
-            catch (Exception)
-            {
-                IsFound = false;
-
-            }
-            finally
-            {
-                connection.Close();
-            }
 
             return IsFound;
         }
-        public static bool IsUserExistByUserName(string UserName)
+        public static bool IsUserExist(int UserID)
         {
             bool IsExist = false;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT Found=1 FROM Users WHERE UserName = @UserName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserName", UserName);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = "SELECT Found=1 FROM Users WHERE UserID = @UserID";
 
-                object result = command.ExecuteScalar();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
 
-                IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
+                    try
+                    {
+                        connection.Open();
 
-                //Doctor approach:
-                //SqlDataReader reader = command.ExecuteReader();
-                //IsExist = reader.HasRows;
-                //reader.Close();
+                        object result = command.ExecuteScalar();
 
+                        IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
-            catch (Exception)
-            {
-                IsExist = false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
             return IsExist;
-        }
-        public static bool IsUserExistByPersonID(int PersonID)
+        }  
+        public static bool IsUserExist(string UserName)
         {
             bool IsExist = false;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT Found=1 FROM Users WHERE PersonID = @PersonID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@PersonID", PersonID);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = "SELECT Found=1 FROM Users WHERE UserName = @UserName";
 
-                object result = command.ExecuteScalar();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserName", UserName);
 
-                IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
+                    try
+                    {
+                        connection.Open();
 
+                        object result = command.ExecuteScalar();
 
+                        IsExist = (result != null && int.TryParse(result.ToString(), out int found));
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
-            catch (Exception)
-            {
-                IsExist = false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
             return IsExist;
         }
-        public static bool IsUserExistByNationalNo(string NationalNo)
+        public static bool IsUserExistForPersonID(int PersonID)
         {
             bool IsExist = false;
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"SELECT Found=1 FROM Users INNER JOIN People
-                                ON Users.PersonID = People.PersonID
-                            WHERE  NationalNo = @NationalNo";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@NationalNo", NationalNo);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = "SELECT Found=1 FROM Users WHERE PersonID = @PersonID";
 
-                object result = command.ExecuteScalar();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
 
-                IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
+                    try
+                    {
+                        connection.Open();
 
-               
+                        object result = command.ExecuteScalar();
 
+                        IsExist = (result != null && int.TryParse(result.ToString(), out int InsertedID));
+                    }
+                    catch (Exception) { throw; }
+                }
+                
             }
-            catch (Exception)
-            {
-                IsExist = false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
             return IsExist;
         }
-
         public static DataTable GetAllUsers()
         {
             DataTable dataTable = new DataTable();
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"SELECT 
-		                            Users.UserID,
-		                            Users.PersonID,
-		                            FirstName+' '+
-		                            SecondName+' '+
-		                            ISNULL(ThirdName,'')+' '+
-		                            LastName as FullName,
-		                            Users.UserName, Users.IsActive
-                            FROM	Users INNER JOIN
-		                            People ON Users.PersonID = People.PersonID;";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
+                string query = @"SELECT 
+		                                Users.UserID,
+		                                Users.PersonID,
+		                                FirstName+' '+
+		                                SecondName+' '+
+		                                ISNULL(ThirdName,'')+' '+
+		                                LastName as FullName,
+		                                Users.UserName, Users.IsActive
+                                FROM	Users INNER JOIN
+		                                People ON Users.PersonID = People.PersonID;";
 
-                SqlDataReader reader = command.ExecuteReader();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
 
-                //if (reader.HasRows)
-                dataTable.Load(reader);
-
-                reader.Close();
-
-            }
-            catch (Exception)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            //if (reader.HasRows)
+                            dataTable.Load(reader);
+                        }
+                    }
+                    catch (Exception) { throw; }
+                }
             }
 
             return dataTable;
