@@ -58,7 +58,7 @@ namespace DVLD.License
             license.PaidFees = licenseClass.ClassFees;
             license.IsActive = true;
             license.IssueReason = clsLicense.enIssueReason.FirstTime;
-            license.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            license.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _LicenseID = license.LicenseID;
             return license.Save();
             

@@ -123,7 +123,7 @@
     <Compile Include="Applications\Application Types\frmUpdateApplicationType.Designer.cs">
       <DependentUpon>frmUpdateApplicationType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common Classes\clsGlobalSettings.cs" />
+    <Compile Include="Common Classes\clsGlobal.cs" />
     <Compile Include="Common Classes\clsUtil.cs" />
     <Compile Include="Common Classes\clsValidate.cs" />
     <Compile Include="Drivers\frmListDrivers.cs">

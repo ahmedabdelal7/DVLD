@@ -74,7 +74,7 @@ namespace DVLD.Applications
 
                 lblFees.Text = _LocalDrivingLicenseApplication.PaidFees.ToString();
                 lblApplicationDate.Text = DateTime.Now.ToShortDateString(); 
-                lblCreatedBy.Text = clsGlobalSettings.LoggedInUserName.ToString() ;
+                lblCreatedBy.Text = clsGlobal.CurrentUser.UserName.ToString() ;
 
                 //btnNext.Enabled = false;
                 return;
@@ -180,7 +180,7 @@ namespace DVLD.Applications
             _LocalDrivingLicenseApplication.ApplicationStatus = clsApplication.enApplicationStatus.New;
             _LocalDrivingLicenseApplication.LastStatusDate = DateTime.Now;
             //_LocalDrivingLicenseApplication.PaidFees
-            _LocalDrivingLicenseApplication.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _LocalDrivingLicenseApplication.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
 
             if (_LocalDrivingLicenseApplication.Save())

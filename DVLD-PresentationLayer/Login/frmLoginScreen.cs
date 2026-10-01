@@ -18,59 +18,48 @@ namespace DVLD
         {
             InitializeComponent();
         }
-        clsUser _User;
         //string _SavedLoginPath = @"C:\DVLD\SavedLogin.txt";
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //check login information right and user is active. 
-            _User = clsUser.Find(txtUserName.Text.Trim(), clsUtil.ComputeHash(txtPassword.Text.Trim()));
+             //check login information right and user is active. 
+            clsUser user = clsUser.Find(txtUserName.Text.Trim(), clsUtil.ComputeHash(txtPassword.Text.Trim()));
 
-            if (_User == null)
+            if (user == null)
             {
 
                 MessageBox.Show("Invalid UserName or Password","Invalid",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
-
-            if (!_User.IsActive)
-            {
-                MessageBox.Show("This user is not active, please contact you admin.", "Invalid",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            
-
             //Save login information in text file
             if (chkRememberMe.Checked)
             {
-
-                //Save login info to file
-                //File.WriteAllLines(_SavedLoginPath, new string[] { txtUserName.Text.ToString() , txtPassword.Text.ToString()});
-
                 //Save login info to registry
                 clsUtil.SaveLoginInformationToRegistry(txtUserName.Text.Trim(), txtPassword.Text.Trim());
 
 
             }
             else
-            {
-                try
-                {
-                    //File.Delete(_SavedLoginPath);
-                    clsUtil.DeleteLoginInfoFromRegistry();
+            {       //File.Delete(_SavedLoginPath);
+                clsUtil.DeleteLoginInfoFromRegistry();
 
-                }catch { }
             }
 
-                   
-            clsGlobalSettings.LoggedInUserName = _User.UserName;  
-            //clsGlobalSettings.Password = txtPassword.Text;
-            clsGlobalSettings.LoggedInUserID = _User.UserID;
+            if (!user.IsActive)
+            {
+                MessageBox.Show("This user is not active, please contact you admin.", "Invalid",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }         
+                       
+
+            //Fill current user object    
+            clsGlobal.CurrentUser = user;
 
             //open main form screen
             frmMain frm = new frmMain();
-            frm.DataBack += ShowLoginScreen;
+            frm.OnMainFormClosed += ShowLoginScreen;
+
             this.Hide();
             this.ShowInTaskbar = false;
             frm.ShowDialog();
@@ -102,35 +91,47 @@ namespace DVLD
 
         private void frmLoginScreen_Load(object sender, EventArgs e)
         {
+            // Read login info fom text file.
+            /*
+                if (File.Exists(_SavedLoginPath))
+                {
 
-            //Read login info fom text file.
-            //if (File.Exists(_SavedLoginPath)) {
+                    string[] lines = File.ReadAllLines(_SavedLoginPath);
 
-            //    string[] lines = File.ReadAllLines(_SavedLoginPath);
+                    try
+                    {
+                        //if text file was empty for any reason, it will throw exception here.
+                        txtUserName.Text = lines[0];
+                        txtPassword.Text = lines[1];
 
-            //    try {
-            //        //if text file was empty for any reason, it will throw exception here.
-            //        txtUserName.Text = lines[0];
-            //        txtPassword.Text = lines[1];
+                        //if exception not be thrown then Check remember me again.
+                        chkRememberMe.Checked = true;
+                    }
+                    catch
+                    {
+                        chkRememberMe.Checked = false;
+                    }
 
-            //        //if exception not be thrown then Check remember me again.
-            //        chkRememberMe.Checked = true;   
-            //    }catch { 
-            //        chkRememberMe.Checked= false;
-            //    }
+                }
+            */
 
-            //}
+
+            txtUserName.Focus();
 
             string userName = "";
             string password = "";
-
+             txtUserName.Focus();
             if(clsUtil.LoadLoginInformationFromRegistry(ref userName,ref password))
             {
                 chkRememberMe.Checked = true;
                 txtUserName.Text = userName;
                 txtPassword.Text = password;
-            }else
+
+                //btnLogin.PerformClick();
+            }
+            else            
                 chkRememberMe.Checked = false;
+                
 
 
 

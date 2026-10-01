@@ -33,7 +33,7 @@
             this.ctrlFindLicenseWithFilter1 = new DVLD.Licenses.Controls.ctrlFindLicenseWithFilter();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblExpirationDate = new System.Windows.Forms.Label();
-            this.lblCreatedByUserUD = new System.Windows.Forms.Label();
+            this.lblCreatedByUserName = new System.Windows.Forms.Label();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -84,6 +84,7 @@
             // 
             // ctrlFindLicenseWithFilter1
             // 
+            this.ctrlFindLicenseWithFilter1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ctrlFindLicenseWithFilter1.BackColor = System.Drawing.Color.White;
             this.ctrlFindLicenseWithFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ctrlFindLicenseWithFilter1.Location = new System.Drawing.Point(18, 97);
@@ -96,7 +97,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lblExpirationDate);
-            this.groupBox2.Controls.Add(this.lblCreatedByUserUD);
+            this.groupBox2.Controls.Add(this.lblCreatedByUserName);
             this.groupBox2.Controls.Add(this.pictureBox13);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label5);
@@ -139,15 +140,15 @@
             this.lblExpirationDate.TabIndex = 27;
             this.lblExpirationDate.Text = "??";
             // 
-            // lblCreatedByUserUD
+            // lblCreatedByUserName
             // 
-            this.lblCreatedByUserUD.AutoSize = true;
-            this.lblCreatedByUserUD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreatedByUserUD.Location = new System.Drawing.Point(721, 165);
-            this.lblCreatedByUserUD.Name = "lblCreatedByUserUD";
-            this.lblCreatedByUserUD.Size = new System.Drawing.Size(29, 20);
-            this.lblCreatedByUserUD.TabIndex = 27;
-            this.lblCreatedByUserUD.Text = "??";
+            this.lblCreatedByUserName.AutoSize = true;
+            this.lblCreatedByUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreatedByUserName.Location = new System.Drawing.Point(721, 165);
+            this.lblCreatedByUserName.Name = "lblCreatedByUserName";
+            this.lblCreatedByUserName.Size = new System.Drawing.Size(29, 20);
+            this.lblCreatedByUserName.TabIndex = 27;
+            this.lblCreatedByUserName.Text = "??";
             // 
             // pictureBox13
             // 
@@ -461,7 +462,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblExpirationDate;
-        private System.Windows.Forms.Label lblCreatedByUserUD;
+        private System.Windows.Forms.Label lblCreatedByUserName;
         private System.Windows.Forms.PictureBox pictureBox13;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label5;

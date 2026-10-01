@@ -34,7 +34,7 @@ namespace DVLD.Applications.Detain_License
 
             
 
-            lblCreatedByUserID.Text = clsGlobalSettings.LoggedInUserName;
+            lblCreatedByUserID.Text = clsGlobal.CurrentUser.UserName;
             lblApplicationFees.Text = clsApplicationType.GetApplicationFees((int)clsApplication.enApplicationType.ReleaseDetainedLicense).ToString();
 
             if(_LicenseID != -1)
@@ -144,7 +144,7 @@ namespace DVLD.Applications.Detain_License
             app.ApplicationTypeID = clsApplication.enApplicationType.ReleaseDetainedLicense;
             app.ApplicationStatus= clsApplication.enApplicationStatus.Completed;
             app.PaidFees = clsApplicationType.GetApplicationFees((int)app.ApplicationTypeID);
-            app.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            app.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             app.Save();
 
@@ -152,7 +152,7 @@ namespace DVLD.Applications.Detain_License
 
             _DetainedInfo.ReleaseApplicationID = app.ApplicationID;
 
-            if (_DetainedInfo.ReleaseDetainedLicense(clsGlobalSettings.LoggedInUserID, app.ApplicationID))
+            if (_DetainedInfo.ReleaseDetainedLicense(clsGlobal.CurrentUser.UserID, app.ApplicationID))
             {
                 lblReleaseAppID.Text = _DetainedInfo.ReleaseApplicationID.ToString();
 

@@ -32,15 +32,15 @@ namespace DVLD
             //_CurrentUser = clsUser.Find(UserID);
             InitializeComponent();
         }
-        public delegate void DataBackEventHandler(bool EndProgram);
+        public delegate void CloseFormEventHandler(bool EndProgram);
 
         // 2. Declare event based on delegate
-        public event DataBackEventHandler DataBack;
+        public event CloseFormEventHandler OnMainFormClosed;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
 
-            _CurrentUser = clsUser.Find(clsGlobalSettings.LoggedInUserID);
+            _CurrentUser = clsUser.Find(clsGlobal.CurrentUser.UserID);
             lblLoggedInUser.Text = _CurrentUser.UserName;
             lblDate.Text = DateTime.Now.ToString("g");
         }
@@ -61,24 +61,25 @@ namespace DVLD
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataBack?.Invoke(false);
+            clsGlobal.CurrentUser = null;
+            OnMainFormClosed?.Invoke(false);
             this.Hide();
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DataBack?.Invoke(true);
+            OnMainFormClosed?.Invoke(true); //End Program
         }
 
         private void currentUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmUserInfo frmUserInfo = new frmUserInfo(clsGlobalSettings.LoggedInUserID);
+            frmUserInfo frmUserInfo = new frmUserInfo(clsGlobal.CurrentUser.UserID);
             frmUserInfo.ShowDialog();
         }
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmChangePassword frmChangePassword = new frmChangePassword(clsGlobalSettings.LoggedInUserID);
+            frmChangePassword frmChangePassword = new frmChangePassword(clsGlobal.CurrentUser.UserID);
             frmChangePassword.ShowDialog();
         }
 

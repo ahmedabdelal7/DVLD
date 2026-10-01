@@ -103,9 +103,6 @@ namespace DVLD.Common_Classes
         }
 
 
-        /// <summary>
-        /// //////////////////
-        /// </summary>
 
         private static string RegistryKeyPath = @"HKEY_CURRENT_USER\";
         private static string UserLoginInfoNode = @"Software\DVLD\UserLoginInfo";

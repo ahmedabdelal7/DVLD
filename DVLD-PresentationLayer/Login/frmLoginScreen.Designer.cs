@@ -69,7 +69,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(558, 30);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Version 1.0\r\n\r\n";
+            this.label2.Text = "Version 1.1";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -207,6 +207,7 @@
             // 
             // frmLoginScreen
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;

@@ -162,7 +162,7 @@ namespace DVLD.Tests
             _RetakeTestApp.ApplicationDate = DateTime.Now;
             _RetakeTestApp.ApplicationStatus = clsApplication.enApplicationStatus.New;
             _RetakeTestApp.ApplicationTypeID = clsApplication.enApplicationType.RetakeTest;
-            _RetakeTestApp.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _RetakeTestApp.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _RetakeTestApp.LastStatusDate = DateTime.Now;
             _RetakeTestApp.PaidFees = clsApplicationType.GetApplicationFees(7);
         }
@@ -170,7 +170,7 @@ namespace DVLD.Tests
         {
             _TestAppointment.LDLAppID = _LDLAppID;
             _TestAppointment.AppointmentDate = dateTimePicker1.Value;
-            _TestAppointment.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _TestAppointment.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _TestAppointment.PaidFees = clsTestType.GetTestFees(_TestType);
             _TestAppointment.TestTypeID = _TestType;
         }

@@ -81,7 +81,7 @@ namespace DVLD.Tests
             Test.TestAppointmentID = _TestAppointment.TestAppointmentID;
             Test.TestResult = IsPass;
             Test.Notes = txtNotes.Text.Trim();
-            Test.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            Test.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
         }
         private void btnSave_Click(object sender, EventArgs e)

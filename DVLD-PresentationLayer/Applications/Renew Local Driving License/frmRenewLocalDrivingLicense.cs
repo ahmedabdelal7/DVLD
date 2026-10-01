@@ -26,7 +26,7 @@ namespace DVLD.Licenses.Renew_Local_Driving_License
             lblAppDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblIssueDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblApplicationFees.Text = clsApplicationType.GetApplicationFees((int)clsApplication.enApplicationType.RenewLicense).ToString();
-            lblCreatedByUserID.Text = clsGlobalSettings.LoggedInUserName;
+            lblCreatedByUserID.Text = clsGlobal.CurrentUser.UserName;
             btnRenew.Enabled = false;
             lnkShowLicenseInfo.Enabled = false;
             lnkShowLicensesHistory.Enabled = false;
@@ -123,7 +123,7 @@ namespace DVLD.Licenses.Renew_Local_Driving_License
             application.ApplicationDate = DateTime.Now;
             application.LastStatusDate = DateTime.Now;
             application.ApplicantPersonID = _OldLocalLicense.PersonID;
-            application.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            application.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             application.Save();
 
@@ -136,7 +136,7 @@ namespace DVLD.Licenses.Renew_Local_Driving_License
             _NewLocalLicense.ExpirationDate = DateTime.Now.AddYears(_OldLocalLicense.LicenseClassInfo.DefaultValidityLength);
             _NewLocalLicense.IsActive = true;
             _NewLocalLicense.DriverID = _OldLocalLicense.DriverID;
-            _NewLocalLicense.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _NewLocalLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _NewLocalLicense.IssueReason = clsLicense.enIssueReason.Renew;
             _NewLocalLicense.PaidFees = Convert.ToDouble(lblLicenseFees.Text);
             _NewLocalLicense.Notes = txtNotes.Text;

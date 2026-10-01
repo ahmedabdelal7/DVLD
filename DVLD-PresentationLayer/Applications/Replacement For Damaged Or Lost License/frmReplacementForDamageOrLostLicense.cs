@@ -52,7 +52,7 @@ namespace DVLD.Applications.Replacement_For_Damaged_Or_Lost_License
             lblAppDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblIssueDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblApplicationFees.Text = clsApplicationType.GetApplicationFees((int)clsApplication.enApplicationType.ReplaceDamagedLicense).ToString();
-            lblCreatedByUserID.Text = clsGlobalSettings.LoggedInUserName;
+            lblCreatedByUserID.Text = clsGlobal.CurrentUser.UserName;
             btnIssueReplacement.Enabled = false;
             lnkShowLicenseInfo.Enabled = false;
             lnkShowLicensesHistory.Enabled = false;
@@ -132,7 +132,7 @@ namespace DVLD.Applications.Replacement_For_Damaged_Or_Lost_License
             application.ApplicationDate = DateTime.Now;
             application.LastStatusDate = DateTime.Now;
             application.ApplicantPersonID = _OldLicense.PersonID;
-            application.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            application.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             application.Save();
 
@@ -145,7 +145,7 @@ namespace DVLD.Applications.Replacement_For_Damaged_Or_Lost_License
             _ReplacedLicense.ExpirationDate = DateTime.Now.AddYears(_OldLicense.LicenseClassInfo.DefaultValidityLength);
             _ReplacedLicense.IsActive = true;
             _ReplacedLicense.DriverID = _OldLicense.DriverID;
-            _ReplacedLicense.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _ReplacedLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             _ReplacedLicense.IssueReason =
                 (_ReplacementFor == enReplacementFor.LostLicense ?

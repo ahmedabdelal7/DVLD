@@ -27,7 +27,7 @@ namespace DVLD.Applications.Detain_License
         {
             lblDetainDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             
-            lblCreatedByUserID.Text = clsGlobalSettings.LoggedInUserName;
+            lblCreatedByUserID.Text = clsGlobal.CurrentUser.UserName;
             btnDetain.Enabled = false;
             lnkShowLicenseInfo.Enabled = false;
             lnkShowLicensesHistory.Enabled = false;
@@ -124,7 +124,7 @@ namespace DVLD.Applications.Detain_License
             DetainLicense.FineFees = Convert.ToDouble( txtFineFees.Text);
             DetainLicense.LicenseID = _License.LicenseID;
             DetainLicense.DetainDate = DateTime.Now;
-            DetainLicense.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            DetainLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             if (DetainLicense.Save())
             {

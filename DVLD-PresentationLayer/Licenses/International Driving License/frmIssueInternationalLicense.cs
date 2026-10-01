@@ -81,7 +81,7 @@ namespace DVLD.Applications.International_Driving_License_Applications
             lblAppDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblIssueDate.Text = clsUtil.CustomShortDate(DateTime.Now);
             lblExpirationDate.Text = clsUtil.CustomShortDate(DateTime.Now.AddYears(1));
-            lblCreatedByUserUD.Text = clsGlobalSettings.LoggedInUserName;
+            lblCreatedByUserName.Text = clsGlobal.CurrentUser.UserName;
             lblFees.Text = clsApplicationType.GetApplicationFees(6).ToString();
         }
 
@@ -101,11 +101,11 @@ namespace DVLD.Applications.International_Driving_License_Applications
             _ActiveIntLicense.ApplicationStatus = clsApplication.enApplicationStatus.New;
             _ActiveIntLicense.LastStatusDate= DateTime.Now;
             _ActiveIntLicense.PaidFees = clsApplicationType.GetApplicationFees((int)_ActiveIntLicense.ApplicationTypeID);
-            _ActiveIntLicense.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _ActiveIntLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _ActiveIntLicense.IssuedUsingLocalLicenseID = _LocalLicense.LicenseID;
             _ActiveIntLicense.IssueDate = DateTime.Now;
             _ActiveIntLicense.ExpirationDate = _ActiveIntLicense.IssueDate.AddYears(1);
-            _ActiveIntLicense.CreatedByUserID = clsGlobalSettings.LoggedInUserID;
+            _ActiveIntLicense.CreatedByUserID = clsGlobal.CurrentUser.UserID;
             _ActiveIntLicense.IsActive = true;
             _ActiveIntLicense.DriverID = _LocalLicense.DriverID;
 
